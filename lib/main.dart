@@ -28,14 +28,25 @@ class BadgeTrackerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: const [
-            BadgeTrackerHeader(),
-            BadgeTrackerTimeline(),
-            BadgeTrackerSessionViewer()
-          ],
-        ),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              children: const [
+                BadgeTrackerHeader(),
+                BadgeTrackerTimeline(),
+                BadgeTrackerSessionViewer()
+              ],
+            ),
+          ),
+          Positioned(
+            bottom: 20,
+            right: 20,
+            child: Image.asset('assets/imgs/flutterlogo.png',
+              width: 200
+            )
+          )
+        ],
       ),
     );
   }

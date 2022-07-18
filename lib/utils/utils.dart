@@ -9,6 +9,8 @@ class Utils {
   static const Color mainGreen = Color(0xFF34A853);
   static const Color lightGrey = Color(0xFFE5E5E5);
   static const Color lightGreen = Color(0xFFCFEBD6);
+  static const Color mainYellow = Color(0xFFFBBC39);
+  static const Color mainRed = Color(0xFFEA4335);
 
   static List<Session> getDefaultSessions() {
     
