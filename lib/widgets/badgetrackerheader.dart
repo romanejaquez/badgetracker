@@ -1,5 +1,6 @@
 import 'package:badgetracker/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class BadgeTrackerHeader extends StatelessWidget {
   const BadgeTrackerHeader({Key? key}) : super(key: key);
@@ -12,9 +13,9 @@ class BadgeTrackerHeader extends StatelessWidget {
         children: [
           Row(
             children: [
-              Image.asset('./assets/imgs/gcloud.png',
-                width: 125,
-                height: 125,
+              SvgPicture.asset('./assets/imgs/gcloud.svg',
+                width: 100,
+                height: 100,
                 fit: BoxFit.contain
               ),
               const SizedBox(width: 20),

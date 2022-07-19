@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="557.968" height="109.474" viewBox="0 0 557.968 109.474">
+  <g id="Group_164" data-name="Group 164" transform="translate(-1596.987 -993.364)" opacity="0.205">
+    <path id="flutter" d="M55.582,109.474,42.7,96.767,59.059,80.4l28.956,29.073ZM25.242,79.405,41.6,63.038,57.954,79.405,41.6,95.772ZM42.7,62.186,55.582,49.48H88.014L59.059,78.553ZM0,54.266,53.93,0h32.7L16.294,70.38Z" transform="translate(1596.987 993.364)"/>
+    <text id="Built_With_Flutter" data-name="Built With Flutter" transform="translate(2154.956 1066.545)" font-size="55" font-family="ProductSans-Bold, Product Sans" font-weight="700"><tspan x="-425.535" y="0">Built With Flutter</tspan></text>
+  </g>
+</svg>
