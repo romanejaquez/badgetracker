@@ -1,13 +1,17 @@
+import 'package:badgetracker/utils/utils.dart';
+
 class Badge {
   String badgeTitle;
   String link;
+  bool isComplete;
 
-  Badge({ required this.badgeTitle, required this.link });
+  Badge({ required this.badgeTitle, required this.link, required this.isComplete });
 
   factory Badge.fromJson(Map<String, dynamic> json) {
     return Badge(
       badgeTitle: json['name'],
-      link: json['link']  
+      link: json['link'],
+      isComplete: Utils.checkForSessionCompletion(json['name'])
     );
   }
 

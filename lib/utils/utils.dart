@@ -1,4 +1,5 @@
 import 'package:badgetracker/models/badge.dart';
+import 'package:badgetracker/models/badgeholder.dart';
 import 'package:badgetracker/models/session.dart';
 import 'package:flutter/material.dart';
 
@@ -12,99 +13,183 @@ class Utils {
   static const Color mainYellow = Color(0xFFFBBC39);
   static const Color mainRed = Color(0xFFEA4335);
 
+  static bool checkForSessionCompletion(String badgeName) {
+    return Utils.getDefaultSessions().any((s) => s.badges.any(
+      (b) => b.badgeTitle.toLowerCase() == badgeName.toLowerCase()
+      )
+    );
+  }
+
+  static bool isSessionCompleteFromBadgeHolder(Session session, List<Badge> badgeHolderBadges) {
+    var allComplete = true;
+
+    for(var badge in session.badges) {
+      if (!badgeHolderBadges.any((b) => b.badgeTitle == badge.badgeTitle)) {
+        allComplete = false;
+        break;
+      }
+    }
+
+    return allComplete;
+  }
+
+  static int getRemainingDays() {
+    var today = DateTime.now(); //DateTime.parse('2022-08-04')
+    var lastSession = Utils.getDefaultSessions().last;
+    var lDate = DateTime.parse(lastSession.date);
+    var remainingDays = lDate.difference(today).inDays;
+    return remainingDays;
+  }
+
+  static int getTotalDays() {
+    var firstSession = Utils.getDefaultSessions().first;
+    var lastSession = Utils.getDefaultSessions().last;
+    var fDate = DateTime.parse(firstSession.date);
+    var lDate = DateTime.parse(lastSession.date);
+    var totalDaysInCampaign = lDate.difference(fDate).inDays;
+    return totalDaysInCampaign;
+  }
+
+  static int getDaysIntoCampaign() {
+    var today = DateTime.now();
+    var firstSession = Utils.getDefaultSessions().first;
+    var fDate = DateTime.parse(firstSession.date);
+    
+    var remainingDays = today.difference(fDate).inDays;
+    return remainingDays;
+  }
+
+  static double daysInCampaign() {
+    return Utils.getDaysIntoCampaign() / 100;
+  }
+
+  static Badge getBadgeFromUser(BadgeHolder badgeHolder, Badge systemBadge) {
+    return badgeHolder.badges.where((b) => b.badgeTitle == systemBadge.badgeTitle).first;
+  }
+
+  static int getCompletedSessions() {
+    return Utils.getDefaultSessions().where((s) => s.isComplete).length;
+  }
+
   static List<Session> getDefaultSessions() {
     
-    return [
+    var today = DateTime.now(); //DateTime.parse('2022-08-04')
+    var sessions = [
       Session(
         index: 0,
         isSelected: false,
-        date: '2022-07-07T00:00:00Z',
+        isComplete: false,
+        date: '2022-07-21T00:00:00Z',
         badges: [
           Badge(
             badgeTitle: 'Preparing for Your Associate Cloud Engineer Journey',
-            link: ''
+            link: '',
+            isComplete: false
           ),
           Badge(
             badgeTitle: 'Google Cloud Fundamentals: Core Infrastructure',
-            link: ''
+            link: '',
+            isComplete: false
           ),
           Badge(
             badgeTitle: 'Create and Manage Cloud Resources',
-            link: ''
+            link: '',
+            isComplete: false
           )
         ]
       ),
       Session(
         index: 1,
         isSelected: false,
-        date: '2022-07-21T00:00:00Z',
+        isComplete: false,
+        date: '2022-08-04T00:00:00Z',
         badges: [
           Badge(
             badgeTitle: 'Essential Google Cloud Infrastructure: Foundation',
-            link: ''
+            link: '',
+            isComplete: false
           ),
           Badge(
             badgeTitle: 'Perform Foundational Infrastructure Tasks in Google Cloud',
-            link: ''
+            link: '',
+            isComplete: false
           ),
         ]
       ),
       Session(
         index: 2,
         isSelected: false,
-        date: '2022-08-04T00:00:00Z',
+        date: '2022-08-18T00:00:00Z',
+        isComplete: false,
         badges: [
           Badge(
             badgeTitle: 'Essential Google Cloud Infrastructure: Core Services',
-            link: ''
+            link: '',
+            isComplete: false
           ),
           Badge(
             badgeTitle: 'Set Up and Configure a Cloud Environment in Google Cloud',
-            link: ''
+            link: '',
+            isComplete: false
           ),
         ]
       ),
       Session(
         index: 3,
         isSelected: false,
-        date: '2022-08-18T00:00:00Z',
+        date: '2022-09-01T00:00:00Z',
+        isComplete: false,
         badges: [
           Badge(
             badgeTitle: 'Elastic Google Cloud Infrastructure: Scaling and Automation',
-            link: ''
+            link: '',
+            isComplete: false
           ),
           Badge(
             badgeTitle: 'Automating Infrastructure on Google Cloud with Terraform',
-            link: ''
+            link: '',
+            isComplete: false
           ),
         ]
       ),
       Session(
         index: 4,
         isSelected: false,
-        date: '2022-09-01T00:00:00Z',
+        date: '2022-09-15T00:00:00Z',
+        isComplete: false,
         badges: [
           Badge(
             badgeTitle: 'Reliable Google Cloud Infrastructure: Design and Process',
-            link: ''
+            link: '',
+            isComplete: false
           ),
         ]
       ),
       Session(
         index: 5,
         isSelected: false,
-        date: '2022-09-15T00:00:00Z',
+        date: '2022-09-29T00:00:00Z',
+        isComplete: false,
         badges: [
           Badge(
             badgeTitle: 'Getting Started with Google Kubernetes Engine',
-            link: ''
+            link: '',
+            isComplete: false
           ),
           Badge(
             badgeTitle: 'Deploy to Kubernetes in Google Cloud',
-            link: ''
+            link: '',
+            isComplete: false
           ),
         ]
-      )
+      ),
     ];
+
+    for(var session in sessions) {
+      var sessionDate = DateTime.parse(session.date);
+      session.isComplete = today.isAfter(sessionDate);
+    }
+
+    return sessions;
   }
 }

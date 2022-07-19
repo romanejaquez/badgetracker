@@ -40,8 +40,10 @@ class BadgeTrackerSessionViewer extends StatelessWidget {
                   BadgeHolderList(
                     badgeHolders: badgeHolders,
                   ),
-                  SizedBox(width: 30),
-                  Center(child: BadgeTracker())
+                  const SizedBox(width: 30),
+                  Center(child: BadgeTracker(
+                    badgeHolders: badgeHolders
+                  ))
                 ],
               );
             }

@@ -6,11 +6,13 @@ class Session {
   String date;
   bool isSelected;
   List<Badge> badges; 
+  bool isComplete;
 
   Session({
     required this.index,
     required this.date,
     required this.isSelected,
-    required this.badges
+    required this.badges,
+    required this.isComplete
   });
 }

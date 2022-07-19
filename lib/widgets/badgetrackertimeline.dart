@@ -1,5 +1,7 @@
+import 'package:badgetracker/models/session.dart';
 import 'package:badgetracker/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class BadgeTrackerTimeline extends StatelessWidget {
   const BadgeTrackerTimeline({Key? key}) : super(key: key);
@@ -7,14 +9,14 @@ class BadgeTrackerTimeline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(40),
+      padding: const EdgeInsets.only(left: 40, right: 40),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Row(
             children: [
-              Text('56',
+              Text('${Utils.getRemainingDays()}',
                 style: TextStyle(
                   color: Utils.mainGreen,
                   fontSize: 70,
@@ -26,11 +28,11 @@ class BadgeTrackerTimeline extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Days until\nCampaign Completion',
+                  const Text('Days until\nCampaign Completion',
                     style: TextStyle(fontSize: 16, color: Utils.mainGreen)
                   ),
-                  Text('2 Sessions Completed',
-                    style: TextStyle(fontSize: 16, color: Utils.mainGreen)
+                  Text('${Utils.getCompletedSessions()} Sessions Completed',
+                    style: const TextStyle(fontSize: 16, color: Utils.mainGreen)
                   )
                 ],
               )
@@ -43,7 +45,10 @@ class BadgeTrackerTimeline extends StatelessWidget {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: List.generate(6, (index) {
+                  children: List.generate(Utils.getDefaultSessions().length, (index) {
+                    
+                    Session currentSession = Utils.getDefaultSessions()[index];
+
                     return Container(
                       width: 100,
                       alignment: Alignment.topCenter,
@@ -52,34 +57,39 @@ class BadgeTrackerTimeline extends StatelessWidget {
                         height: 45,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          color: index > 0 ? Colors.transparent : Utils.lightGreen
+                          color: currentSession.isComplete ? Utils.lightGreen : Colors.transparent
                         ),
                       ),
                     );
                   }),
                 ),
 
-                FractionallySizedBox(
-                  widthFactor: 0.2,
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 10.5, left: 50, right: 50),
-                    height: 25,
-                    decoration: const BoxDecoration(
-                      color: Utils.lightGreen
-                    ),
-                  ),
-                )
-                ,
+                /*Container(
+                  margin: const EdgeInsets.only(top: 10.5, left: 50, right: 50),
+                  height: 25,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return Container(
+                        width: (constraints.maxWidth * 0.1) - Utils.getDaysIntoCampaign() * 0.1,
+                        decoration: const BoxDecoration(
+                          color: Utils.lightGreen
+                        ),
+                      );
+                    }
+                  )
+                ),*/
 
                 Container(
                   margin: const EdgeInsets.only(top: 18, left: 50, right: 50),
                   child: Row(
-                    children: List.generate(5, (index) {
+                    children: List.generate(Utils.getDefaultSessions().length - 1, (index) {
+
                       return Expanded(
                         child: Container(
                           height: 10,
                           decoration: BoxDecoration(
-                            color: index == 0 ? Utils.mainGreen : Utils.lightGrey
+                            color: index < Utils.getDefaultSessions().length - 1 &&
+                              Utils.getDefaultSessions()[index + 1].isComplete ? Utils.mainGreen : Utils.lightGrey
                           ),
                         ),
                       );
@@ -89,7 +99,10 @@ class BadgeTrackerTimeline extends StatelessWidget {
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: List.generate(6, (index) {
+                  children: List.generate(Utils.getDefaultSessions().length, (index) {
+                    
+                    Session currentSession = Utils.getDefaultSessions()[index];
+                    
                     return SizedBox(
                       width: 100,
                       child: Column(
@@ -102,15 +115,16 @@ class BadgeTrackerTimeline extends StatelessWidget {
                             margin: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: index < 2 ? Utils.mainGreen : Utils.lightGrey
+                              color: currentSession.isComplete ? Utils.mainGreen : Utils.lightGrey
                             ),
                           ),
                           const SizedBox(height: 10),
-                          Text('Session $index', textAlign: TextAlign.center,
+                          Text('Session ${currentSession.index + 1}', textAlign: TextAlign.center,
                             style: const TextStyle(color: Utils.mainGreen, fontSize: 20, fontWeight: FontWeight.bold)
                           ),
-                          const Text('July 7', textAlign: TextAlign.center,
-                            style: TextStyle(color: Utils.darkGrey)
+                          Text(
+                          DateFormat.MMMd().format(DateTime.parse(currentSession.date)), textAlign: TextAlign.center,
+                            style: const TextStyle(color: Utils.darkGrey)
                           )
                         ],
                       ),
