@@ -6,7 +6,9 @@ import 'package:flutter_svg/svg.dart';
 class GCloudLogoAnim extends StatefulWidget {
 
   final bool animate;
-  const GCloudLogoAnim({Key? key, this.animate = true }) : super(key: key);
+  final bool colorLogo;
+  final bool animateOnce;
+  const GCloudLogoAnim({Key? key, this.animate = true, this.animateOnce = false, this.colorLogo = false }) : super(key: key);
 
   @override
   State<GCloudLogoAnim> createState() => _GCloudLogoAnimState();
@@ -15,6 +17,8 @@ class GCloudLogoAnim extends StatefulWidget {
 class _GCloudLogoAnimState extends State<GCloudLogoAnim> with SingleTickerProviderStateMixin {
   
   late AnimationController logoAnim;
+  late Timer timer;
+  bool isReversed = false;
 
   @override
   void initState() {
@@ -25,31 +29,38 @@ class _GCloudLogoAnimState extends State<GCloudLogoAnim> with SingleTickerProvid
       duration: const Duration(seconds: 1)
     );
 
-    if (widget.animate) {
+    if (widget.animate || widget.animateOnce) {
       logoAnim.forward();
     }
     else {
       logoAnim.animateTo(1.0, duration: const Duration(seconds: 0));
     }
+
+    if (widget.animate) {
+      Timer.periodic(const Duration(milliseconds: 1500), (timer) {
+        if (!isReversed) {
+          if (mounted) logoAnim.reverse();
+        }
+        else {
+          if (mounted) logoAnim.forward();
+        }
+
+        isReversed = !isReversed;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    logoAnim.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
 
-    bool isReversed = false;
-
-    if (widget.animate) {
-      Timer.periodic(const Duration(milliseconds: 1500), (timer) {
-      if (!isReversed) {
-        logoAnim.reverse();
-      }
-      else {
-        logoAnim.forward();
-      }
-
-      isReversed = !isReversed;
-    });
-    }
+    
+    String suffix = widget.colorLogo ? 'c' : '';
 
     return Transform.scale(
       scale: 0.3,
@@ -67,7 +78,7 @@ class _GCloudLogoAnimState extends State<GCloudLogoAnim> with SingleTickerProvid
                   .animate(CurvedAnimation(parent: logoAnim,
                   curve: const Interval(0.75, 1.0, curve: Curves.easeInOut)
                 )),
-                child: SvgPicture.asset('assets/imgs/gcloud4.svg'))
+                child: SvgPicture.asset('assets/imgs/gcloud4$suffix.svg'))
             ),
             Positioned(
               top: -52.5,
@@ -77,7 +88,7 @@ class _GCloudLogoAnimState extends State<GCloudLogoAnim> with SingleTickerProvid
                   .animate(CurvedAnimation(parent: logoAnim,
                   curve: const Interval(0.50, 0.75, curve: Curves.easeInOut)
                 )),
-                child: SvgPicture.asset('assets/imgs/gcloud3.svg'))),
+                child: SvgPicture.asset('assets/imgs/gcloud3$suffix.svg'))),
             Positioned(
               bottom: -95,
               left: -15,
@@ -86,7 +97,7 @@ class _GCloudLogoAnimState extends State<GCloudLogoAnim> with SingleTickerProvid
                   .animate(CurvedAnimation(parent: logoAnim,
                   curve: const Interval(0.25, 0.50, curve: Curves.easeInOut)
                 )),
-                child: SvgPicture.asset('assets/imgs/gcloud2.svg'))),
+                child: SvgPicture.asset('assets/imgs/gcloud2$suffix.svg'))),
             Positioned(
               left: -50,
               child: FadeTransition(
@@ -95,7 +106,7 @@ class _GCloudLogoAnimState extends State<GCloudLogoAnim> with SingleTickerProvid
                   curve: const Interval(0.0, 0.25, curve: Curves.easeInOut)
                 )),
                 child: SvgPicture.asset(
-                  'assets/imgs/gcloud1.svg'),
+                  'assets/imgs/gcloud1$suffix.svg'),
               )),
           ],
         ),

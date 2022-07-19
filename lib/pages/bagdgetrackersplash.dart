@@ -13,9 +13,10 @@ class BadgeTrackerSplash extends StatefulWidget {
   State<BadgeTrackerSplash> createState() => _BadgeTrackerSplashState();
 }
 
-class _BadgeTrackerSplashState extends State<BadgeTrackerSplash> with SingleTickerProviderStateMixin {
+class _BadgeTrackerSplashState extends State<BadgeTrackerSplash> with TickerProviderStateMixin {
 
   late AnimationController ctrl;
+  late AnimationController textCtrl;
   late Timer timer;
 
   @override
@@ -23,6 +24,10 @@ class _BadgeTrackerSplashState extends State<BadgeTrackerSplash> with SingleTick
     super.initState();
 
     ctrl = AnimationController(vsync: this,
+      duration: const Duration(seconds: 1)
+    )..forward();
+
+    textCtrl = AnimationController(vsync: this,
       duration: const Duration(seconds: 1)
     )..forward();
 
@@ -34,6 +39,12 @@ class _BadgeTrackerSplashState extends State<BadgeTrackerSplash> with SingleTick
         );
       });
     });
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 
   @override
@@ -54,34 +65,50 @@ class _BadgeTrackerSplashState extends State<BadgeTrackerSplash> with SingleTick
                   begin: const Offset(0.0, 0.09),
                   end: const Offset(0.0, 0.0),
                 ).animate(CurvedAnimation(parent: ctrl, curve: Curves.easeInOut)),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Stack(
-                      children: const [
-                        Opacity(
+                child: SizedBox(
+                  width: 390,
+                  child: Stack(
+                    children: [
+                      const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Opacity(
                           opacity: 0.2,
                           child: GCloudLogoAnim(animate: false)
                         ),
-                        GCloudLogoAnim(animate: true),
-                      ],
-                    ),
-                    const SizedBox(width: 40),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text('Road to Certification',
-                          style: TextStyle(color: Colors.white, fontSize: 25)
+                      ),
+                      const Align(
+                        alignment: Alignment.centerLeft,
+                        child: GCloudLogoAnim(animate: true)
+                      ),
+                      FadeTransition(
+                        opacity: Tween<double>(
+                          begin: 0.0, end: 1.0
+                        ).animate(CurvedAnimation(parent: textCtrl, curve: Curves.easeInOut)),
+                        child: SlideTransition(
+                          position: Tween<Offset>(
+                            begin: const Offset(0.25, 0.0),
+                            end: const Offset(0.0, 0.0)
+                          ).animate(CurvedAnimation(parent: textCtrl, curve: Curves.easeInOut)),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text('Road to Certification',
+                                  style: TextStyle(color: Colors.white, fontSize: 25)
+                                ),
+                                Text('Badge Tracker',
+                                  style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold)
+                                ),
+                              ]
+                            ),
+                          ),
                         ),
-                        Text('Badge Tracker',
-                          style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold)
-                        ),
-                      ]
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
