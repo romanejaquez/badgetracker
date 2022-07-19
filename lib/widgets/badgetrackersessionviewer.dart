@@ -1,5 +1,6 @@
 import 'package:badgetracker/models/badgeholder.dart';
 import 'package:badgetracker/services/proxyservice.dart';
+import 'package:badgetracker/utils/utils.dart';
 import 'package:badgetracker/widgets/badgeholderlist.dart';
 import 'package:badgetracker/widgets/badgetracker.dart';
 import 'package:badgetracker/widgets/badgetrackersessionselector.dart';
@@ -23,11 +24,50 @@ class BadgeTrackerSessionViewer extends StatelessWidget {
             builder: (context, snapshot) {
 
               if (snapshot.hasError) {
-                return Text('Error');
+                return SizedBox(
+                  height: 300,
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: const [
+                            Icon(Icons.warning, color: Utils.mainRed, size: 60),
+                            SizedBox(height: 10),
+                            Text('Error Fetching Badge Data', textAlign: TextAlign.center,
+                              style: TextStyle(color: Utils.mainRed)
+                            )
+                          ],
+                        )
+                      )
+                    ],
+                  ),
+                );
               }
 
               else if (!snapshot.hasData) {
-                return Text('No Data');
+                return SizedBox(
+                  height: 300,
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: SizedBox(
+                          width: 80,
+                          height: 80,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(Utils.mainBlue.withOpacity(0.5)),
+                            strokeWidth: 10,
+                          ),
+                        ),
+                      ),
+                      const Center(
+                        child: Icon(Icons.cloud_circle, color: Utils.mainBlue, size: 60)
+                      )
+                    ],
+                  ),
+                );
               }
 
               List<BadgeHolder> badgeHolders = snapshot.data as List<BadgeHolder>;
