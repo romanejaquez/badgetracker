@@ -21,13 +21,16 @@ class Utils {
         date: '2022-07-07T00:00:00Z',
         badges: [
           Badge(
-            badgeTitle: 'Preparing for Your Associate Cloud Engineer Journey'
+            badgeTitle: 'Preparing for Your Associate Cloud Engineer Journey',
+            link: ''
           ),
           Badge(
-            badgeTitle: 'Google Cloud Fundamentals: Core Infrastructure'
+            badgeTitle: 'Google Cloud Fundamentals: Core Infrastructure',
+            link: ''
           ),
           Badge(
-            badgeTitle: 'Create and Manage Cloud Resources'
+            badgeTitle: 'Create and Manage Cloud Resources',
+            link: ''
           )
         ]
       ),
@@ -37,10 +40,12 @@ class Utils {
         date: '2022-07-21T00:00:00Z',
         badges: [
           Badge(
-            badgeTitle: 'Essential Google Cloud Infrastructure: Foundation'
+            badgeTitle: 'Essential Google Cloud Infrastructure: Foundation',
+            link: ''
           ),
           Badge(
-            badgeTitle: 'Perform Foundational Infrastructure Tasks in Google Cloud'
+            badgeTitle: 'Perform Foundational Infrastructure Tasks in Google Cloud',
+            link: ''
           ),
         ]
       ),
@@ -50,10 +55,12 @@ class Utils {
         date: '2022-08-04T00:00:00Z',
         badges: [
           Badge(
-            badgeTitle: 'Essential Google Cloud Infrastructure: Core Services'
+            badgeTitle: 'Essential Google Cloud Infrastructure: Core Services',
+            link: ''
           ),
           Badge(
-            badgeTitle: 'Set Up and Configure a Cloud Environment in Google Cloud'
+            badgeTitle: 'Set Up and Configure a Cloud Environment in Google Cloud',
+            link: ''
           ),
         ]
       ),
@@ -63,10 +70,12 @@ class Utils {
         date: '2022-08-18T00:00:00Z',
         badges: [
           Badge(
-            badgeTitle: 'Elastic Google Cloud Infrastructure: Scaling and Automation'
+            badgeTitle: 'Elastic Google Cloud Infrastructure: Scaling and Automation',
+            link: ''
           ),
           Badge(
-            badgeTitle: 'Automating Infrastructure on Google Cloud with Terraform'
+            badgeTitle: 'Automating Infrastructure on Google Cloud with Terraform',
+            link: ''
           ),
         ]
       ),
@@ -76,7 +85,8 @@ class Utils {
         date: '2022-09-01T00:00:00Z',
         badges: [
           Badge(
-            badgeTitle: 'Reliable Google Cloud Infrastructure: Design and Process'
+            badgeTitle: 'Reliable Google Cloud Infrastructure: Design and Process',
+            link: ''
           ),
         ]
       ),
@@ -86,10 +96,12 @@ class Utils {
         date: '2022-09-15T00:00:00Z',
         badges: [
           Badge(
-            badgeTitle: 'Getting Started with Google Kubernetes Engine'
+            badgeTitle: 'Getting Started with Google Kubernetes Engine',
+            link: ''
           ),
           Badge(
-            badgeTitle: 'Deploy to Kubernetes in Google Cloud'
+            badgeTitle: 'Deploy to Kubernetes in Google Cloud',
+            link: ''
           ),
         ]
       )

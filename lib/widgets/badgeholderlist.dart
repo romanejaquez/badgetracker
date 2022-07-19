@@ -1,8 +1,11 @@
+import 'package:badgetracker/models/badgeholder.dart';
 import 'package:badgetracker/widgets/badgeholderrow.dart';
 import 'package:flutter/material.dart';
 
 class BadgeHolderList extends StatelessWidget {
-  const BadgeHolderList({Key? key}) : super(key: key);
+  List<BadgeHolder> badgeHolders;
+
+  BadgeHolderList({Key? key, required this.badgeHolders }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +14,13 @@ class BadgeHolderList extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
-        children: List.generate(5, (index) {
-          return BadgeHolderRow();
+        children: List.generate(this.badgeHolders.length, (index) {
+
+          BadgeHolder badgeHolder = this.badgeHolders[index];
+
+          return BadgeHolderRow(
+            badgeHolder: badgeHolder
+          );
         }),
       ),
     );

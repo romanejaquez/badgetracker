@@ -1,8 +1,11 @@
+import 'package:badgetracker/models/badgeholder.dart';
 import 'package:badgetracker/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class BadgeHolderRow extends StatelessWidget {
-  const BadgeHolderRow({Key? key}) : super(key: key);
+  BadgeHolder badgeHolder;
+
+  BadgeHolderRow({Key? key, required this.badgeHolder }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +15,23 @@ class BadgeHolderRow extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Text('John Smith'),
-          SizedBox(width: 10),
-          Icon(Icons.account_circle, color: Colors.grey, size: 60),
+          Text(badgeHolder.name),
+          const SizedBox(width: 10),
+          Container(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              border: Border.all(
+                color: Utils.lightGrey,
+                width: 4
+              ),
+              image: DecorationImage(
+                image: NetworkImage(badgeHolder.imgUrl),
+                fit: BoxFit.cover
+              )
+            ),
+          ),
           SizedBox(width: 10),
           SizedBox(
             width: 50,

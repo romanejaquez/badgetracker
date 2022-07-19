@@ -1,3 +1,5 @@
+import 'package:badgetracker/models/badgeholder.dart';
+import 'package:badgetracker/services/proxyservice.dart';
 import 'package:badgetracker/widgets/badgeholderlist.dart';
 import 'package:badgetracker/widgets/badgetracker.dart';
 import 'package:badgetracker/widgets/badgetrackersessionselector.dart';
@@ -16,15 +18,33 @@ class BadgeTrackerSessionViewer extends StatelessWidget {
         children: [
           const BadgeTrackerSessionSelector(),
           const SizedBox(height: 30),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              BadgeHolderList(),
-              SizedBox(width: 30),
-              Center(child: BadgeTracker())
-            ],
+          FutureBuilder(
+            future: HttpProxyService.getBadgeHolders(),
+            builder: (context, snapshot) {
+
+              if (snapshot.hasError) {
+                return Text('Error');
+              }
+
+              else if (!snapshot.hasData) {
+                return Text('No Data');
+              }
+
+              List<BadgeHolder> badgeHolders = snapshot.data as List<BadgeHolder>;
+              
+              return Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  BadgeHolderList(
+                    badgeHolders: badgeHolders,
+                  ),
+                  SizedBox(width: 30),
+                  Center(child: BadgeTracker())
+                ],
+              );
+            }
           )
         ],
       ),
