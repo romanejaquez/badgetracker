@@ -14,6 +14,7 @@ class BadgeTrackerTimeline extends StatefulWidget {
 class _BadgeTrackerTimelineState extends State<BadgeTrackerTimeline> with SingleTickerProviderStateMixin {
 
   late AnimationController stepCircleCtrl;
+  double completedSessionsWidth = 0;
 
   @override
   void initState() {
@@ -21,7 +22,7 @@ class _BadgeTrackerTimelineState extends State<BadgeTrackerTimeline> with Single
 
     stepCircleCtrl = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 2000)
+      duration: const Duration(milliseconds: 6000)
     )..forward();
   }
 
@@ -74,31 +75,36 @@ class _BadgeTrackerTimelineState extends State<BadgeTrackerTimeline> with Single
 
                 Container(
                   margin: const EdgeInsets.only(top: 18, left: 50, right: 50),
-                  child: Row(
-                    children: List.generate(Utils.getDefaultSessions().length - 1, (index) {
+                  height: 10,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
 
-                      return Expanded(
-                        child: Container(
-                          height: 10,
-                          decoration: BoxDecoration(
-                            borderRadius: index == 0 ? const BorderRadius.only(
-                              topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)) :
-                              (index == Utils.getDefaultSessions().length - 1 ? 
-                                const BorderRadius.only(
-                              topRight: Radius.circular(20), bottomRight: Radius.circular(20)) : null),
-                            color: index < Utils.getDefaultSessions().length - 1 &&
-                              Utils.getDefaultSessions()[index + 1].isComplete ? Utils.mainGreen : Utils.lightGrey
-                          ),
+                      if (Utils.getCompletedSessions() > 1) {
+                        Future.delayed(const Duration(milliseconds: 500), () {
+                          setState(() {
+                            completedSessionsWidth = (constraints.maxWidth / (Utils.getDefaultSessions().length - 1)) * (Utils.getCompletedSessions() - 1);
+                          });
+                        });
+                      }
+
+                      return AnimatedContainer(
+                        duration: const Duration(seconds: 2),
+                        curve: Curves.easeInOut,
+                        width: completedSessionsWidth,
+                        decoration: BoxDecoration(
+                          color: Utils.mainGreen,
+                          borderRadius: BorderRadius.circular(20)
                         ),
                       );
-                    }),
-                  ),
+                    }
+                  )
                 ),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: List.generate(Utils.getDefaultSessions().length, (index) {
                     
+                    double interval = 0.18;
                     Session currentSession = Utils.getDefaultSessions()[index];
                     
                     return SizedBox(
@@ -109,9 +115,13 @@ class _BadgeTrackerTimelineState extends State<BadgeTrackerTimeline> with Single
                         children: [
                           ScaleTransition(
                             scale: Tween<double>(
-                              begin: 0.5,
+                              begin: 0.0,
                               end: 1.0
-                            ).animate(CurvedAnimation(parent: stepCircleCtrl, curve: Curves.easeInOut)),
+                            ).animate(CurvedAnimation(
+                              parent: stepCircleCtrl, 
+                              curve: Interval(0.10 * (index), (0.10 * (index + 1)) - 0.05, curve: Curves.easeInOut)
+                              )
+                            ),
                             child: Container(
                               width: 25,
                               height: 25,

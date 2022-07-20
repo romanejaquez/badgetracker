@@ -35,7 +35,7 @@ class Utils {
   }
 
   static int getRemainingDays() {
-    var today = DateTime.now(); //DateTime.parse('2022-08-04')
+    var today = DateTime.parse('2022-09-01');
     var lastSession = Utils.getDefaultSessions().last;
     var lDate = DateTime.parse(lastSession.date);
     var remainingDays = lDate.difference(today).inDays;
@@ -74,7 +74,7 @@ class Utils {
 
   static List<Session> getDefaultSessions() {
     
-    var today = DateTime.now(); //DateTime.parse('2022-08-04')
+    var today = DateTime.parse('2022-09-01');
     var sessions = [
       Session(
         index: 0,
