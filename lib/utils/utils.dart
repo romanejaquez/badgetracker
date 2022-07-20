@@ -12,6 +12,7 @@ class Utils {
   static const Color lightGreen = Color(0xFFCFEBD6);
   static const Color mainYellow = Color(0xFFFBBC39);
   static const Color mainRed = Color(0xFFEA4335);
+  static const Color superLightGrey = Color.fromARGB(255, 251, 251, 251);
 
   static bool checkForSessionCompletion(String badgeName) {
     return Utils.getDefaultSessions().any((s) => s.badges.any(

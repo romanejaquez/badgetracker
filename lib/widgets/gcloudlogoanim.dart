@@ -8,7 +8,8 @@ class GCloudLogoAnim extends StatefulWidget {
   final bool animate;
   final bool colorLogo;
   final bool animateOnce;
-  const GCloudLogoAnim({Key? key, this.animate = true, this.animateOnce = false, this.colorLogo = false }) : super(key: key);
+  final double scale;
+  const GCloudLogoAnim({Key? key, this.animate = true, this.animateOnce = false, this.colorLogo = false, this.scale = 0.3 }) : super(key: key);
 
   @override
   State<GCloudLogoAnim> createState() => _GCloudLogoAnimState();
@@ -63,7 +64,7 @@ class _GCloudLogoAnimState extends State<GCloudLogoAnim> with SingleTickerProvid
     String suffix = widget.colorLogo ? 'c' : '';
 
     return Transform.scale(
-      scale: 0.3,
+      scale: widget.scale,
       child: SizedBox(
         width: 100,
         height: 100,

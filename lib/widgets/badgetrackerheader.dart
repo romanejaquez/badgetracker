@@ -32,14 +32,23 @@ class _BadgeTrackerHeaderState extends State<BadgeTrackerHeader> with SingleTick
   
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(30),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.025),
+            offset: const Offset(0, 5),
+            blurRadius: 10
+          )
+        ]
+      ),
       child: Row(
         children: [
           Row(
             children: [
-              const GCloudLogoAnim(animate: false, animateOnce: true, colorLogo: true),
-              const SizedBox(width: 40),
+              const GCloudLogoAnim(animate: false, animateOnce: true, colorLogo: true, scale: 0.2),
+              const SizedBox(width: 10),
               Stack(
                 clipBehavior: Clip.none,
                 children: [
@@ -52,16 +61,21 @@ class _BadgeTrackerHeaderState extends State<BadgeTrackerHeader> with SingleTick
                         begin: const Offset(0.25, 0.0),
                         end: const Offset(0.0, 0.0)
                       ).animate(CurvedAnimation(parent: ctrl, curve: Curves.easeInOut)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          const Text('Road to Certification',
-                            style: TextStyle(color: Utils.darkGrey, fontSize: 15)
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text('Road to Certification',
+                                style: TextStyle(color: Utils.darkGrey, fontSize: 15)
+                              ),
+                              Text('Badge Tracker',
+                                style: TextStyle(color: Utils.darkGrey, fontSize: 30, fontWeight: FontWeight.bold)
+                              )
+                            ],
                           ),
-                          const Text('Badge Tracker',
-                            style: TextStyle(color: Utils.darkGrey, fontSize: 30, fontWeight: FontWeight.bold)
-                          ),
-                          const SizedBox(height: 10),
+                          const SizedBox(width: 10),
                           Container(
                             padding: const EdgeInsets.only(top: 5, left: 20, right: 20, bottom: 5),
                             decoration: BoxDecoration(
