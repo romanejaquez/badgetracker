@@ -47,7 +47,7 @@ class _BadgeTrackerTimelineState extends State<BadgeTrackerTimeline> with Single
                     builder: (context, constraints) {
                       return Container(
                         decoration: const BoxDecoration(
-                          color: Utils.superLightGrey
+                          color: Utils.lightGreen
                         ),
                       );
                     }
@@ -66,7 +66,7 @@ class _BadgeTrackerTimelineState extends State<BadgeTrackerTimeline> with Single
                         height: 45,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          color: Utils.superLightGrey
+                          color: Utils.lightGreen
                         ),
                       ),
                     );
@@ -104,7 +104,7 @@ class _BadgeTrackerTimelineState extends State<BadgeTrackerTimeline> with Single
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: List.generate(Utils.getDefaultSessions().length, (index) {
                     
-                    double interval = 0.18;
+                    double interval = 0.10;
                     Session currentSession = Utils.getDefaultSessions()[index];
                     
                     return SizedBox(
@@ -119,7 +119,7 @@ class _BadgeTrackerTimelineState extends State<BadgeTrackerTimeline> with Single
                               end: 1.0
                             ).animate(CurvedAnimation(
                               parent: stepCircleCtrl, 
-                              curve: Interval(0.10 * (index), (0.10 * (index + 1)) - 0.05, curve: Curves.easeInOut)
+                              curve: Interval(interval * (index), (interval * (index + 1)) - 0.05, curve: Curves.easeInOut)
                               )
                             ),
                             child: Container(
@@ -128,7 +128,7 @@ class _BadgeTrackerTimelineState extends State<BadgeTrackerTimeline> with Single
                               margin: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: currentSession.isComplete ? Utils.mainGreen : Utils.lightGrey
+                                color: currentSession.isComplete ? Utils.mainGreen : Utils.mainGreen.withOpacity(0.3)
                               ),
                             ),
                           ),
