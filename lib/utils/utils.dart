@@ -34,6 +34,33 @@ class Utils {
     return allComplete;
   }
 
+  static int remainingTotalBadgesToCompleteCampaign(BadgeHolder badgeHolder) {
+    int remaining = 0;
+    int totalBadgesInCampaign = Utils.totalBadgesInCampaign();
+
+    for(var session in Utils.getDefaultSessions()) {
+      for (var sessionBadge in session.badges) {
+        if (badgeHolder.badges.any((b) => b.badgeTitle == sessionBadge.badgeTitle)) {
+          remaining += badgeHolder.badges.where((b) => b.badgeTitle == sessionBadge.badgeTitle).length;
+        }
+      }
+    }
+
+    return totalBadgesInCampaign - remaining;
+  }
+
+  static String getCompletedBadgesFromSession(Session session, List<Badge> badgeHolderBadges) {
+    int completedBadges = 0;
+
+    for(var badge in session.badges) {
+      if (badgeHolderBadges.any((b) => b.badgeTitle == badge.badgeTitle)) {
+        completedBadges += badgeHolderBadges.where((b) => b.badgeTitle == badge.badgeTitle).length;
+      }
+    }
+
+    return '$completedBadges/${session.badges.length}';
+  }
+
   static int getRemainingDays() {
     var today = DateTime.parse('2022-09-01');
     var lastSession = Utils.getDefaultSessions().last;
@@ -70,6 +97,15 @@ class Utils {
 
   static int getCompletedSessions() {
     return Utils.getDefaultSessions().where((s) => s.isComplete).length;
+  }
+
+  static int totalBadgesInCampaign() {
+    int totalBadges = 0;
+    Utils.getDefaultSessions().forEach((element) {
+      totalBadges += element.badges.length;
+    });
+
+    return totalBadges;
   }
 
   static List<Session> getDefaultSessions() {
