@@ -2,6 +2,7 @@ import 'package:badgetracker/models/badge.dart';
 import 'package:badgetracker/models/badgeholder.dart';
 import 'package:badgetracker/models/session.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
   static const Color darkGrey = Color(0xFF555555);
@@ -120,17 +121,17 @@ class Utils {
         badges: [
           Badge(
             badgeTitle: 'Preparing for Your Associate Cloud Engineer Journey',
-            link: '',
+            link: 'https://www.cloudskillsboost.google/course_templates/77',
             isComplete: false
           ),
           Badge(
             badgeTitle: 'Google Cloud Fundamentals: Core Infrastructure',
-            link: '',
+            link: 'https://www.cloudskillsboost.google/course_templates/60',
             isComplete: false
           ),
           Badge(
             badgeTitle: 'Create and Manage Cloud Resources',
-            link: '',
+            link: 'https://www.cloudskillsboost.google/quests/120',
             isComplete: false
           )
         ]
@@ -143,12 +144,12 @@ class Utils {
         badges: [
           Badge(
             badgeTitle: 'Essential Google Cloud Infrastructure: Foundation',
-            link: '',
+            link: 'https://www.cloudskillsboost.google/course_templates/50',
             isComplete: false
           ),
           Badge(
             badgeTitle: 'Perform Foundational Infrastructure Tasks in Google Cloud',
-            link: '',
+            link: 'https://www.cloudskillsboost.google/quests/118',
             isComplete: false
           ),
         ]
@@ -161,12 +162,12 @@ class Utils {
         badges: [
           Badge(
             badgeTitle: 'Essential Google Cloud Infrastructure: Core Services',
-            link: '',
+            link: 'https://www.cloudskillsboost.google/course_templates/49',
             isComplete: false
           ),
           Badge(
             badgeTitle: 'Set Up and Configure a Cloud Environment in Google Cloud',
-            link: '',
+            link: 'https://www.cloudskillsboost.google/quests/119',
             isComplete: false
           ),
         ]
@@ -179,12 +180,12 @@ class Utils {
         badges: [
           Badge(
             badgeTitle: 'Elastic Google Cloud Infrastructure: Scaling and Automation',
-            link: '',
+            link: 'https://www.cloudskillsboost.google/course_templates/178',
             isComplete: false
           ),
           Badge(
             badgeTitle: 'Automating Infrastructure on Google Cloud with Terraform',
-            link: '',
+            link: 'https://www.cloudskillsboost.google/quests/159',
             isComplete: false
           ),
         ]
@@ -197,7 +198,7 @@ class Utils {
         badges: [
           Badge(
             badgeTitle: 'Reliable Google Cloud Infrastructure: Design and Process',
-            link: '',
+            link: 'https://www.cloudskillsboost.google/course_templates/41',
             isComplete: false
           ),
         ]
@@ -210,12 +211,12 @@ class Utils {
         badges: [
           Badge(
             badgeTitle: 'Getting Started with Google Kubernetes Engine',
-            link: '',
+            link: 'https://www.cloudskillsboost.google/course_templates/2',
             isComplete: false
           ),
           Badge(
             badgeTitle: 'Deploy to Kubernetes in Google Cloud',
-            link: '',
+            link: 'https://www.cloudskillsboost.google/quests/116',
             isComplete: false
           ),
         ]
@@ -228,5 +229,9 @@ class Utils {
     }
 
     return sessions;
+  }
+
+  static void launchUrl(String url) async {
+    await launch(url);
   }
 }

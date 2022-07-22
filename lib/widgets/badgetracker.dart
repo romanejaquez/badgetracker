@@ -47,12 +47,21 @@ class BadgeTracker extends StatelessWidget {
                   selectedSession.badges.length,
                   (index) {
                     Badge badge = selectedSession.badges[index];
-                    return Container(
-                      margin: const EdgeInsets.only(left: 20, right: 20),
-                      width: 150,
-                      child: Text(badge.badgeTitle,
-                        textAlign: TextAlign.center,
-                      ));
+                    return GestureDetector(
+                      onTap: () {
+                        Utils.launchUrl(badge.link);
+                      },
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: Container(
+                          margin: const EdgeInsets.only(left: 20, right: 20),
+                          width: 150,
+                          child: Text(badge.badgeTitle,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(color: Utils.mainBlue)
+                          )),
+                      ),
+                    );
                   }),
               ),
             ),
