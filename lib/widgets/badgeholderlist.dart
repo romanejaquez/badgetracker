@@ -3,11 +3,30 @@ import 'package:badgetracker/utils/utils.dart';
 import 'package:badgetracker/widgets/badgeholderrow.dart';
 import 'package:flutter/material.dart';
 
-class BadgeHolderList extends StatelessWidget {
+class BadgeHolderList extends StatefulWidget {
   List<BadgeHolder> badgeHolders;
 
   BadgeHolderList({Key? key, required this.badgeHolders }) : super(key: key);
-  
+
+  @override
+  State<BadgeHolderList> createState() => _BadgeHolderListState();
+}
+
+class _BadgeHolderListState extends State<BadgeHolderList> with SingleTickerProviderStateMixin {
+  late AnimationController rowAnim;
+  double rowDuration = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    int listDuration = (widget.badgeHolders.length / 3 * 1000).toInt();
+    rowDuration = (1.0 / widget.badgeHolders.length);
+    rowAnim = AnimationController(vsync: this,
+      duration: Duration(milliseconds: listDuration)
+    )..forward();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +37,7 @@ class BadgeHolderList extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text('${badgeHolders.length}',
+              Text('${widget.badgeHolders.length}',
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Utils.mainYellow, fontSize: 70
@@ -31,12 +50,20 @@ class BadgeHolderList extends StatelessWidget {
             ]
           ),
           const SizedBox(height: 10),
-          ...List.generate(badgeHolders.length, (index) {
+          ...List.generate(widget.badgeHolders.length, (index) {
 
-          BadgeHolder badgeHolder = badgeHolders[index];
+          BadgeHolder badgeHolder = widget.badgeHolders[index];
 
-          return BadgeHolderRow(
-            badgeHolder: badgeHolder
+          return FadeTransition(
+            opacity: Tween<double>(begin: 0.0, end: 1.0)
+            .animate(CurvedAnimation(
+              parent: rowAnim, 
+              curve: Interval(index * rowDuration, (index + 1) * rowDuration, curve: Curves.easeInOut)
+              )
+            ),
+            child: BadgeHolderRow(
+              badgeHolder: badgeHolder
+            ),
           );
         })
         ],
