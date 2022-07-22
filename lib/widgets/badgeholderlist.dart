@@ -20,7 +20,7 @@ class _BadgeHolderListState extends State<BadgeHolderList> with SingleTickerProv
   void initState() {
     super.initState();
 
-    int listDuration = (widget.badgeHolders.length / 3 * 1000).toInt();
+    int listDuration = (widget.badgeHolders.length / 3 * 500).toInt();
     rowDuration = (1.0 / widget.badgeHolders.length);
     rowAnim = AnimationController(vsync: this,
       duration: Duration(milliseconds: listDuration)
@@ -54,15 +54,23 @@ class _BadgeHolderListState extends State<BadgeHolderList> with SingleTickerProv
 
           BadgeHolder badgeHolder = widget.badgeHolders[index];
 
-          return FadeTransition(
-            opacity: Tween<double>(begin: 0.0, end: 1.0)
-            .animate(CurvedAnimation(
-              parent: rowAnim, 
-              curve: Interval(index * rowDuration, (index + 1) * rowDuration, curve: Curves.easeInOut)
-              )
+          return SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(-0.25, 0.0),
+              end: const Offset(0.0, 0.0)
+            ).animate(CurvedAnimation(parent: rowAnim, 
+              curve: Interval(index * rowDuration, (index + 1) * rowDuration, curve: Curves.easeInOut))
             ),
-            child: BadgeHolderRow(
-              badgeHolder: badgeHolder
+            child: FadeTransition(
+              opacity: Tween<double>(begin: 0.0, end: 1.0)
+              .animate(CurvedAnimation(
+                parent: rowAnim, 
+                curve: Interval(index * rowDuration, (index + 1) * rowDuration, curve: Curves.easeInOut)
+                )
+              ),
+              child: BadgeHolderRow(
+                badgeHolder: badgeHolder
+              ),
             ),
           );
         })
