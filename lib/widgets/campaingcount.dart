@@ -18,7 +18,7 @@ class CampaignCount extends StatelessWidget {
             const Text('Days until\nCampaign Completion',
               style: TextStyle(fontSize: 16, color: Utils.mainGreen)
             ),
-            Text('${Utils.getCompletedSessions()} Sessions Completed',
+            Text('${Utils.getCompletedSessions()} Session(s) Completed',
               style: const TextStyle(fontSize: 16, color: Utils.mainGreen)
             )
           ],

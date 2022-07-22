@@ -31,7 +31,7 @@ class _BadgeTrackerSessionSelectorState extends State<BadgeTrackerSessionSelecto
       opacity: Tween<double>(begin: 0.0, end: 1.0)
       .animate(CurvedAnimation(parent: fadeAnim, curve: Curves.easeInOut)),
       child: Container(
-        padding: const EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
+        padding: const EdgeInsets.only(left: 40, right: 20, top: 20, bottom: 20),
         decoration: BoxDecoration(
           color: Utils.lightBlue,
           borderRadius: BorderRadius.circular(100)

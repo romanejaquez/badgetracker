@@ -48,25 +48,41 @@ class BadgeTrackerSessionViewer extends StatelessWidget {
               }
 
               else if (!snapshot.hasData) {
-                return SizedBox(
-                  height: 300,
-                  child: Stack(
-                    children: [
-                      Center(
-                        child: SizedBox(
-                          width: 80,
-                          height: 80,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation(Utils.mainBlue.withOpacity(0.5)),
-                            strokeWidth: 10,
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 40),
+                    SizedBox(
+                      height: 100,
+                      child: Stack(
+                        children: [
+                          Center(
+                            child: SizedBox(
+                              width: 80,
+                              height: 80,
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation(Utils.mainBlue.withOpacity(0.5)),
+                                strokeWidth: 10,
+                              ),
+                            ),
                           ),
-                        ),
+                          const Center(
+                            child: Icon(Icons.cloud_circle, color: Utils.mainBlue, size: 60)
+                          )
+                        ],
                       ),
-                      const Center(
-                        child: Icon(Icons.cloud_circle, color: Utils.mainBlue, size: 60)
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                      width: 150,
+                      child: const Text('Loading Future\nCloud Engineers\'\n Badge Data',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Utils.mainBlue)
                       )
-                    ],
-                  ),
+                    )
+                  ],
                 );
               }
 

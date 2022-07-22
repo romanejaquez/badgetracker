@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:badgetracker/models/badgeholder.dart';
 import 'package:badgetracker/models/session.dart';
 import 'package:badgetracker/services/badgeholderservice.dart';
 import 'package:badgetracker/utils/utils.dart';
+import 'package:badgetracker/widgets/badgeholderdialogdataitem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,8 +15,10 @@ class BadgeHolderDialog extends StatefulWidget {
   State<BadgeHolderDialog> createState() => _BadgeHolderDialogState();
 }
 
-class _BadgeHolderDialogState extends State<BadgeHolderDialog> with SingleTickerProviderStateMixin {
+class _BadgeHolderDialogState extends State<BadgeHolderDialog> with TickerProviderStateMixin {
   AnimationController? dialogAnimController;
+  AnimationController? dialogInfoController;
+  late Timer timer;
 
   @override 
   void initState() {
@@ -23,11 +28,22 @@ class _BadgeHolderDialogState extends State<BadgeHolderDialog> with SingleTicker
       duration: const Duration(milliseconds: 500),
       vsync: this
     )..forward();
+
+    dialogInfoController = AnimationController(
+      duration: const Duration(milliseconds: 1000),
+      vsync: this
+    );
+
+    timer = Timer(const Duration(milliseconds: 500), () {
+      dialogInfoController!.forward();
+    });
   }
 
   @override 
   void dispose() {
     dialogAnimController!.dispose();
+    dialogInfoController!.dispose();
+    timer.cancel();
     super.dispose();
   }
 
@@ -36,7 +52,7 @@ class _BadgeHolderDialogState extends State<BadgeHolderDialog> with SingleTicker
 
     BadgeHolderService badgeHolderService = Provider.of<BadgeHolderService>(context, listen: false);
     BadgeHolder holder = badgeHolderService.selectedBadgeHolder!;
-    
+
     return ScaleTransition(
       scale: Tween<double>(begin: 0.5, end: 1.0)
       .animate(CurvedAnimation(parent: dialogAnimController!, curve: Curves.linearToEaseOut)),
@@ -76,85 +92,40 @@ class _BadgeHolderDialogState extends State<BadgeHolderDialog> with SingleTicker
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    margin: const EdgeInsets.all(20),
-                    child: Column(
-                      children: [
-                        Container(
-                          width: 60,
-                          height: 60,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Utils.mainBlue,
-                            borderRadius: BorderRadius.circular(50)
-                          ),
-                          child: Text('${holder.badges.length}',
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white)
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        const Text('Total Number of\nBadges Earned', 
-                        textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.grey, fontSize: 12)
-                        )
-                      ],
+                  FadeTransition(
+                    opacity: Tween<double>(
+                      begin: 0.0,
+                      end: 1.0,
+                    ).animate(CurvedAnimation(parent: dialogInfoController!,
+                      curve: const Interval(0.0, 0.33, curve: Curves.easeInOut))
+                    ),
+                    child: BadgeHolderDialogDataItem(
+                      amount: holder.badges.length,
+                      label: 'Total Number of\nBadges Earned'
                     ),
                   ),
-                  Container(
-                    margin: const EdgeInsets.all(20),
-                    child: Column(
-                      children: [
-                        Container(
-                          width: 60,
-                          height: 60,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Utils.mainBlue,
-                            borderRadius: BorderRadius.circular(50)
-                          ),
-                          child: Text('${Utils.totalBadgesInCampaign()}',
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white)
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        const Text('Total Number of\nBadges In Campaign', 
-                        textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.grey, fontSize: 12)
-                        )
-                      ],
+                  FadeTransition(
+                    opacity: Tween<double>(
+                      begin: 0.0,
+                      end: 1.0,
+                    ).animate(CurvedAnimation(parent: dialogInfoController!,
+                      curve: const Interval(0.33, 0.66, curve: Curves.easeInOut))
+                    ),
+                    child: BadgeHolderDialogDataItem(
+                      amount: Utils.totalBadgesInCampaign(),
+                      label: 'Total Number of\nBadges In Campaign'
                     ),
                   ),
-                  Container(
-                    margin: const EdgeInsets.all(20),
-                    child: Column(
-                      children: [
-                        Container(
-                          width: 60,
-                          height: 60,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Utils.mainBlue,
-                            borderRadius: BorderRadius.circular(50)
-                          ),
-                          child: Text('${Utils.remainingTotalBadgesToCompleteCampaign(holder)}',
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white)
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        const Text('Remaining Badges\nOn RTC Campaign',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.grey, fontSize: 12)
-                        )
-                      ],
+                  FadeTransition(
+                    opacity: Tween<double>(
+                      begin: 0.0,
+                      end: 1.0,
+                    ).animate(CurvedAnimation(parent: dialogInfoController!,
+                      curve: const Interval(0.66, 0.99, curve: Curves.easeInOut))
+                    ),
+                    child: BadgeHolderDialogDataItem(
+                      amount: Utils.remainingTotalBadgesToCompleteCampaign(holder),
+                      label: 'Remaining Badges\nOn RTC Campaign'
                     ),
                   )
                 ],
@@ -182,23 +153,38 @@ class _BadgeHolderDialogState extends State<BadgeHolderDialog> with SingleTicker
                 height: 200,
                 child: GridView.count(crossAxisCount: 3,
                   children: List.generate(Utils.getDefaultSessions().length, (index) {
+                    double interval = 0.10;
                     Session currentSession = Utils.getDefaultSessions()[index];
                     
-                    return Container(
-                      margin: const EdgeInsets.all(10),
-                      width: 20,
-                      height: 20,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: Utils.isSessionCompleteFromBadgeHolder(currentSession,
-                        holder.badges) ? Utils.mainYellow : Utils.mainYellow.withOpacity(0.2)
+                    return ScaleTransition(
+                      scale: Tween<double>(begin: 0.0, end: 1.0)
+                        .animate(CurvedAnimation(
+                          parent: dialogInfoController!,
+                          curve: Interval(index * interval, (index + 1) * interval)
+                        )),
+                      child: FadeTransition(
+                        opacity: Tween<double>(begin: 0.0, end: 1.0)
+                        .animate(CurvedAnimation(
+                          parent: dialogInfoController!,
+                          curve: Interval(index * interval, (index + 1) * interval)
+                        )),
+                        child: Container(
+                          margin: const EdgeInsets.all(10),
+                          width: 20,
+                          height: 20,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Utils.isSessionCompleteFromBadgeHolder(currentSession,
+                            holder.badges) ? Utils.mainYellow : Utils.mainYellow.withOpacity(0.2)
+                          ),
+                          child: Text(Utils.getCompletedBadgesFromSession(currentSession,
+                            holder.badges),
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold)  
+                          )
+                        ),
                       ),
-                      child: Text(Utils.getCompletedBadgesFromSession(currentSession,
-                        holder.badges),
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold)  
-                      )
                     );
                   })
                 ),

@@ -13,14 +13,20 @@ class BadgeTrackerApp extends StatelessWidget {
         children: [
           Scaffold(
             backgroundColor: Colors.white,
-            body: SingleChildScrollView(
-              child: Column(
-                children: const [
-                  BadgeTrackerHeader(),
-                  BadgeTrackerTimeline(),
-                  BadgeTrackerSessionViewer()
-                ],
-              ),
+            body: Column(
+              children: [
+                const BadgeTrackerHeader(),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: const [
+                        BadgeTrackerTimeline(),
+                        BadgeTrackerSessionViewer()
+                      ],
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
           Positioned(

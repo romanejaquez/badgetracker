@@ -27,19 +27,31 @@ class BadgeHolderRow extends StatelessWidget {
             children: [
               Text(badgeHolder.name),
               const SizedBox(width: 10),
-              Container(
+              SizedBox(
                 width: 60,
                 height: 60,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  border: Border.all(
-                    color: Utils.lightGrey,
-                    width: 4
-                  ),
-                  image: DecorationImage(
-                    image: NetworkImage(badgeHolder.imgUrl),
-                    fit: BoxFit.cover
-                  )
+                child: Stack(
+                  children: [
+                    const Center(
+                      child: Icon(Icons.account_circle, color: Utils.lightGrey, size: 60)
+                    ),
+                    Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(
+                          color: Utils.lightGrey,
+                          width: 4
+                        ),
+                        color: Colors.transparent,
+                        image: DecorationImage(
+                          image: NetworkImage(badgeHolder.imgUrl),
+                          fit: BoxFit.cover
+                        )
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(width: 10),
