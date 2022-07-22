@@ -6,7 +6,7 @@ class BadgeHolderList extends StatelessWidget {
   List<BadgeHolder> badgeHolders;
 
   BadgeHolderList({Key? key, required this.badgeHolders }) : super(key: key);
-
+  
   @override
   Widget build(BuildContext context) {
     return Container(

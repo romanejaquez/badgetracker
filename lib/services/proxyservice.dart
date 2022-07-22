@@ -24,6 +24,17 @@ class HttpProxyService {
           badgeHolders.add(BadgeHolder.fromJson(badgeHolder));
         }
 
+        badgeHolders.sort(((a, b) {
+          if (a.badges.length < b.badges.length) {
+            return 1;
+          }
+
+          if (a.badges.length > b.badges.length) {
+            return -1;
+          }
+          return 0;
+        }));
+        
         badgeHoldersCompleter.complete(badgeHolders);
       }
       else {
