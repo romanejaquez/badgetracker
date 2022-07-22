@@ -21,7 +21,7 @@ class _BadgeTrackerSessionSelectorState extends State<BadgeTrackerSessionSelecto
 
     fadeAnim = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 4)
+      duration: const Duration(seconds: 2)
     )..forward();
   }
 

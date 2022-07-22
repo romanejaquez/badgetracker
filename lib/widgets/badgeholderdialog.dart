@@ -72,13 +72,23 @@ class _BadgeHolderDialogState extends State<BadgeHolderDialog> with TickerProvid
             children: [
               const SizedBox(height: 10),
               Center(
-                child: SizedBox(
-                  width: 80,
-                  height: 80,
-                  child: ClipOval(
-                    child: Image.network(
-                      holder.imgUrl,
-                      width: 80, height: 80, fit: BoxFit.cover)
+                child: FadeTransition(
+                  opacity: Tween<double>(
+                      begin: 0.0, end: 1.0
+                    ).animate(CurvedAnimation(parent: dialogAnimController!, curve: Curves.easeInOut)),
+                  child: ScaleTransition(
+                    scale: Tween<double>(
+                      begin: 0.5, end: 1.0
+                    ).animate(CurvedAnimation(parent: dialogAnimController!, curve: Curves.easeInOut)),
+                    child: SizedBox(
+                      width: 80,
+                      height: 80,
+                      child: ClipOval(
+                        child: Image.network(
+                          holder.imgUrl,
+                          width: 80, height: 80, fit: BoxFit.cover)
+                      ),
+                    ),
                   ),
                 ),
               ),

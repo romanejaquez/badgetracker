@@ -38,8 +38,24 @@
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
+  <style>
+    body {
+      background-color: #008DE5;
+    }
+
+    #launch_img {
+      background: url('launch_img.png') no-repeat !important;
+      background-size: contain !important;
+      width: 120px;
+      height: 120px;
+      position: absolute;
+      top: calc(50% - 60px);
+      left: calc(50% - 60px);
+    }
+  </style>
 </head>
 <body>
+  <div id="launch_img"></div>
   <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js

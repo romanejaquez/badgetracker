@@ -4,6 +4,7 @@ import 'package:badgetracker/utils/utils.dart';
 import 'package:badgetracker/widgets/badgeholderlist.dart';
 import 'package:badgetracker/widgets/badgetracker.dart';
 import 'package:badgetracker/widgets/badgetrackersessionselector.dart';
+import 'package:badgetracker/widgets/gcloudlogoanim.dart';
 import 'package:flutter/material.dart';
 
 class BadgeTrackerSessionViewer extends StatelessWidget {
@@ -18,7 +19,7 @@ class BadgeTrackerSessionViewer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const BadgeTrackerSessionSelector(),
-          const SizedBox(height: 30),
+          const SizedBox(height: 40),
           FutureBuilder(
             future: HttpProxyService.getBadgeHolders(),
             builder: (context, snapshot) {
@@ -55,29 +56,42 @@ class BadgeTrackerSessionViewer extends StatelessWidget {
                   children: [
                     const SizedBox(height: 40),
                     SizedBox(
-                      height: 100,
                       child: Stack(
                         children: [
                           Center(
-                            child: SizedBox(
-                              width: 80,
-                              height: 80,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation(Utils.mainBlue.withOpacity(0.5)),
-                                strokeWidth: 10,
+                            child: Container(
+                              margin: const EdgeInsets.only(top: 2),
+                              child: SizedBox(
+                                width: 100,
+                                height: 100,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation(Utils.mainBlue.withOpacity(0.5)),
+                                  strokeWidth: 10,
+                                ),
                               ),
                             ),
                           ),
-                          const Center(
-                            child: Icon(Icons.cloud_circle, color: Utils.mainBlue, size: 60)
+                          Center(
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 23),
+                              child: const Opacity(
+                                opacity: 0.1,
+                                child: GCloudLogoAnim(scale: 0.18, colorLogo: true, animate: false)
+                                )
+                              )
+                          ),
+                          Center(
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 23),
+                              child: const GCloudLogoAnim(scale: 0.18, colorLogo: true))
                           )
                         ],
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    Container(
+                    const SizedBox(height: 30),
+                    const SizedBox(
                       width: 150,
-                      child: const Text('Loading Future\nCloud Engineers\'\n Badge Data',
+                      child: Text('Loading Future\nCloud Engineers\'\n Badge Data',
                         textAlign: TextAlign.center,
                         style: TextStyle(color: Utils.mainBlue)
                       )
