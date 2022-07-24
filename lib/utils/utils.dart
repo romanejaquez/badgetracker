@@ -62,6 +62,22 @@ class Utils {
     return '$completedBadges/${session.badges.length}';
   }
 
+  static int totalBadgesAmongBadgeHolders(List<BadgeHolder> badgeHolders) {
+    int completedBadges = 0;
+
+    for (var session in Utils.getDefaultSessions()) {
+      for(var badge in session.badges) {
+        for(var holder in badgeHolders) {
+          if (holder.badges.any((b) => b.badgeTitle == badge.badgeTitle)) {
+            completedBadges += holder.badges.where((b) => b.badgeTitle == badge.badgeTitle).length;
+          }
+        }
+      }
+    }
+
+    return completedBadges;
+  }
+
   static int getRemainingDays() {
     var today = DateTime.now(); //parse('2022-09-01');
     var lastSession = Utils.getDefaultSessions().last;

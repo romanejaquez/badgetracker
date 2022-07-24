@@ -8,7 +8,7 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        Provider(create: (_) => BadgeHolderService()),
+        ChangeNotifierProvider(create: (_) => BadgeHolderService()),
         ChangeNotifierProvider(create: (_) => SessionService())
       ],
       child: MaterialApp(
@@ -16,7 +16,7 @@ void main() {
           fontFamily: 'Product Sans Regular'
         ),
         debugShowCheckedModeBanner: false,
-        home: BadgeTrackerSplash()
+        home: const BadgeTrackerSplash()
       )
     )
   );

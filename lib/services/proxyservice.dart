@@ -1,15 +1,18 @@
 import 'dart:async';
 import 'package:badgetracker/models/badgeholder.dart';
+import 'package:badgetracker/services/badgeholderservice.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
+
+import 'package:provider/provider.dart';
 
 class HttpProxyService {
 
   static const String BASE_URL = 'https://us-central1-romanjustcodes.cloudfunctions.net/';
   static const String BADGES_ENDPOINT = 'getBadges';
 
-  static Future<List<BadgeHolder>> getBadgeHolders() {
+  static Future<List<BadgeHolder>> getBadgeHolders(BuildContext context) {
     List<BadgeHolder> badgeHolders = [];
     Completer<List<BadgeHolder>> badgeHoldersCompleter = Completer();
 
@@ -35,6 +38,9 @@ class HttpProxyService {
           return 0;
         }));
         
+        BadgeHolderService bhService = Provider.of<BadgeHolderService>(context, listen: false);
+        bhService.setBadgeHolders(badgeHolders);
+
         badgeHoldersCompleter.complete(badgeHolders);
       }
       else {

@@ -1,4 +1,5 @@
 import 'package:badgetracker/models/badgeholder.dart';
+import 'package:badgetracker/services/badgeholderservice.dart';
 import 'package:badgetracker/services/proxyservice.dart';
 import 'package:badgetracker/utils/utils.dart';
 import 'package:badgetracker/widgets/badgeholderlist.dart';
@@ -6,6 +7,7 @@ import 'package:badgetracker/widgets/badgetracker.dart';
 import 'package:badgetracker/widgets/badgetrackersessionselector.dart';
 import 'package:badgetracker/widgets/gcloudlogoanim.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BadgeTrackerSessionViewer extends StatelessWidget {
   const BadgeTrackerSessionViewer({Key? key}) : super(key: key);
@@ -21,7 +23,7 @@ class BadgeTrackerSessionViewer extends StatelessWidget {
           const BadgeTrackerSessionSelector(),
           const SizedBox(height: 40),
           FutureBuilder(
-            future: HttpProxyService.getBadgeHolders(),
+            future: HttpProxyService.getBadgeHolders(context),
             builder: (context, snapshot) {
 
               if (snapshot.hasError) {
