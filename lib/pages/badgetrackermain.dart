@@ -1,3 +1,4 @@
+import 'package:badgetracker/widgets/badgecountmeter.dart';
 import 'package:badgetracker/widgets/badgetrackerheader.dart';
 import 'package:badgetracker/widgets/badgetrackersessionviewer.dart';
 import 'package:badgetracker/widgets/badgetrackertimeline.dart';
@@ -21,6 +22,7 @@ class BadgeTrackerApp extends StatelessWidget {
                     child: Column(
                       children: const [
                         BadgeTrackerTimeline(),
+                        BadgeCountMeter(),
                         BadgeTrackerSessionViewer()
                       ],
                     ),
