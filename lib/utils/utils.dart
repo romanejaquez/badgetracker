@@ -55,7 +55,7 @@ class Utils {
 
     for(var badge in session.badges) {
       if (badgeHolderBadges.any((b) => b.badgeTitle == badge.badgeTitle)) {
-        completedBadges += badgeHolderBadges.where((b) => b.badgeTitle == badge.badgeTitle).length;
+        completedBadges++;
       }
     }
 
@@ -69,7 +69,7 @@ class Utils {
       for(var badge in session.badges) {
         for(var holder in badgeHolders) {
           if (holder.badges.any((b) => b.badgeTitle == badge.badgeTitle)) {
-            completedBadges += holder.badges.where((b) => b.badgeTitle == badge.badgeTitle).length;
+            completedBadges++;
           }
         }
       }
