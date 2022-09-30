@@ -19,7 +19,7 @@ class _CampaignCountNumberState extends State<CampaignCountNumber> {
   Widget build(BuildContext context) {
 
     Timer.periodic(const Duration(milliseconds: 80), (timer) {
-      if (daysCount == finalCount) {
+      if (daysCount >= finalCount) {
         timer.cancel();
       }
       else {
