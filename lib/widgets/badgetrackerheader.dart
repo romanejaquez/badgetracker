@@ -1,7 +1,9 @@
+import 'package:badgetracker/services/session.service.dart';
 import 'package:badgetracker/utils/utils.dart';
 import 'package:badgetracker/widgets/gcloudlogoanim.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 class BadgeTrackerHeader extends StatefulWidget {
   const BadgeTrackerHeader({Key? key}) : super(key: key);
@@ -32,6 +34,9 @@ class _BadgeTrackerHeaderState extends State<BadgeTrackerHeader> with SingleTick
   
   @override
   Widget build(BuildContext context) {
+
+    var sessionService = context.read<SessionService>();
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -44,6 +49,7 @@ class _BadgeTrackerHeaderState extends State<BadgeTrackerHeader> with SingleTick
         ]
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
@@ -85,9 +91,9 @@ class _BadgeTrackerHeaderState extends State<BadgeTrackerHeader> with SingleTick
                               ),
                               borderRadius: BorderRadius.circular(50)
                             ),
-                            child: const Text(
-                              'Associate Cloud Engineer',
-                              style: TextStyle(color: Utils.mainBlue)
+                            child: Text(
+                              sessionService.campaignName,
+                              style: const TextStyle(color: Utils.mainBlue)
                             )
                           )
                         ],
@@ -97,7 +103,31 @@ class _BadgeTrackerHeaderState extends State<BadgeTrackerHeader> with SingleTick
                 ],
               )
             ],
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                shape: const StadiumBorder(),
+                backgroundColor: Colors.blueAccent.withOpacity(0.1)
+              ),
+              onPressed: () {
+                Utils.launchUrlLink(sessionService.communityLink);
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text.rich(
+                  TextSpan(
+                    style: const TextStyle(fontSize: 15),
+                    children: [
+                      const TextSpan(text: 'by '),
+                      TextSpan(text: sessionService.communityName, style: const TextStyle(fontWeight: FontWeight.bold))
+                    ]
+                  )
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:badgetracker/models/badgeholder.dart';
 import 'package:badgetracker/models/session.dart';
 import 'package:badgetracker/services/badgeholderservice.dart';
+import 'package:badgetracker/services/session.service.dart';
 import 'package:badgetracker/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +13,9 @@ class BadgeHolderRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    var sessionService = context.read<SessionService>();
+
     return GestureDetector(
       onTap: () {
         BadgeHolderService bhService = Provider.of<BadgeHolderService>(context, listen: false);
@@ -60,16 +64,16 @@ class BadgeHolderRow extends StatelessWidget {
                 child: Wrap(
                   spacing: 4,
                   runSpacing: 4,
-                  children: List.generate(Utils.getDefaultSessions().length, (index) {
+                  children: List.generate(sessionService.getDefaultSessions().length, (index) {
           
-                    Session currentSession = Utils.getDefaultSessions()[index];
+                    Session currentSession = sessionService.getDefaultSessions()[index];
                     
                     return Container(
                       width: 10,
                       height: 10,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Utils.isSessionCompleteFromBadgeHolder(currentSession,
+                        color: sessionService.isSessionCompleteFromBadgeHolder(currentSession,
                         badgeHolder.badges) ? Utils.mainYellow : Utils.mainYellow.withOpacity(0.2)
                       ),
                     );

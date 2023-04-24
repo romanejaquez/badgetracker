@@ -1,4 +1,5 @@
 import 'package:badgetracker/services/badgeholderservice.dart';
+import 'package:badgetracker/services/session.service.dart';
 import 'package:badgetracker/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,8 +12,10 @@ class BadgeCountMeter extends StatelessWidget {
     return Consumer<BadgeHolderService>(
       builder: (context, service, child) {
 
-        int currentBadgeCount = service.bagdeholderList.isEmpty ? 0 : Utils.totalBadgesAmongBadgeHolders(service.bagdeholderList);
-        int goalCount = service.bagdeholderList.isEmpty? 0 : Utils.totalBadgesInCampaign() * service.bagdeholderList.length;
+        var sessionService = context.read<SessionService>();
+
+        int currentBadgeCount = service.bagdeholderList.isEmpty ? 0 : sessionService.totalBadgesAmongBadgeHolders(service.bagdeholderList);
+        int goalCount = service.bagdeholderList.isEmpty? 0 : sessionService.totalBadgesInCampaign() * service.bagdeholderList.length;
 
         return Container(
           margin: const EdgeInsets.only(top: 10, bottom: 10, left: 40, right: 40),

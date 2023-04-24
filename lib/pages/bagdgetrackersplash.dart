@@ -1,13 +1,15 @@
 import 'dart:async';
 
 import 'package:badgetracker/pages/badgetrackermain.dart';
+import 'package:badgetracker/services/session.service.dart';
 import 'package:badgetracker/utils/utils.dart';
 import 'package:badgetracker/widgets/gcloudlogoanim.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 class BadgeTrackerSplash extends StatefulWidget {
-  const BadgeTrackerSplash({Key? key}) : super(key: key);
+
+  const BadgeTrackerSplash({super.key});
 
   @override
   State<BadgeTrackerSplash> createState() => _BadgeTrackerSplashState();
@@ -25,16 +27,6 @@ class _BadgeTrackerSplashState extends State<BadgeTrackerSplash> with TickerProv
     ctrl = AnimationController(vsync: this,
       duration: const Duration(seconds: 1)
     )..forward();
-
-
-    timer = Timer(const Duration(seconds: 4), () {
-      ctrl.reverse().then((value) {
-        timer.cancel();
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const BadgeTrackerApp())
-        );
-      });
-    });
   }
 
   @override
@@ -51,51 +43,69 @@ class _BadgeTrackerSplashState extends State<BadgeTrackerSplash> with TickerProv
       backgroundColor: Utils.mainBlue,
       body: Stack(
         children: [
-          Center(
-            child: SizedBox(
-              width: 390,
-              child: FadeTransition(
-                opacity: Tween<double>(begin: 0.0, end: 1.0)
-                .animate(CurvedAnimation(parent: ctrl, curve: Curves.easeInOut)),
-                child: Stack(
-                  children: [
-                    const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Opacity(
-                        opacity: 0.2,
-                        child: GCloudLogoAnim(animate: false)
-                      ),
-                    ),
-                    const Align(
-                      alignment: Alignment.centerLeft,
-                      child: GCloudLogoAnim(animate: true)
-                    ),
-                    SlideTransition(
-                      position: Tween<Offset>(
-                        begin: const Offset(0.25, 0.0),
-                        end: const Offset(0.0, 0.0)
-                      ).animate(CurvedAnimation(parent: ctrl, curve: Curves.easeInOut)),
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text('Road to Certification',
-                              style: TextStyle(color: Colors.white, fontSize: 25)
-                            ),
-                            Text('Badge Tracker',
-                              style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold)
-                            ),
-                          ]
+          Consumer<SessionService>(
+            builder: (context, service, child) {
+
+              timer = Timer(const Duration(seconds: 2), () {
+
+                service.initializeSessions(context).then((success) {
+
+                  ctrl.reverse().then((value) {
+                    timer.cancel();
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => const BadgeTrackerApp())
+                    );
+                  });
+                  
+                });
+              });
+              return Center(
+                child: SizedBox(
+                  width: 390,
+                  child: FadeTransition(
+                    opacity: Tween<double>(begin: 0.0, end: 1.0)
+                    .animate(CurvedAnimation(parent: ctrl, curve: Curves.easeInOut)),
+                    child: Stack(
+                      children: [
+                        const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Opacity(
+                            opacity: 0.2,
+                            child: GCloudLogoAnim(animate: false)
+                          ),
                         ),
-                      ),
-                    )
-                  ],
+                        const Align(
+                          alignment: Alignment.centerLeft,
+                          child: GCloudLogoAnim(animate: true)
+                        ),
+                        SlideTransition(
+                          position: Tween<Offset>(
+                            begin: const Offset(0.25, 0.0),
+                            end: const Offset(0.0, 0.0)
+                          ).animate(CurvedAnimation(parent: ctrl, curve: Curves.easeInOut)),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text('Road to Certification',
+                                  style: TextStyle(color: Colors.white, fontSize: 25)
+                                ),
+                                Text('Badge Tracker',
+                                  style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold)
+                                ),
+                              ]
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ),
+              );
+            }
           )
         ],
       )

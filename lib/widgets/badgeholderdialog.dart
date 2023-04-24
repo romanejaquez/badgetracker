@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:badgetracker/models/badgeholder.dart';
 import 'package:badgetracker/models/session.dart';
 import 'package:badgetracker/services/badgeholderservice.dart';
+import 'package:badgetracker/services/session.service.dart';
 import 'package:badgetracker/utils/utils.dart';
 import 'package:badgetracker/widgets/badgeholderdialogdataitem.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +53,7 @@ class _BadgeHolderDialogState extends State<BadgeHolderDialog> with TickerProvid
 
     BadgeHolderService badgeHolderService = Provider.of<BadgeHolderService>(context, listen: false);
     BadgeHolder holder = badgeHolderService.selectedBadgeHolder!;
+    var sessionService = context.read<SessionService>();
 
     return ScaleTransition(
       scale: Tween<double>(begin: 0.5, end: 1.0)
@@ -122,7 +124,7 @@ class _BadgeHolderDialogState extends State<BadgeHolderDialog> with TickerProvid
                       curve: const Interval(0.33, 0.66, curve: Curves.easeInOut))
                     ),
                     child: BadgeHolderDialogDataItem(
-                      amount: Utils.totalBadgesInCampaign(),
+                      amount: sessionService.totalBadgesInCampaign(),
                       label: 'Total Number of\nBadges In Campaign'
                     ),
                   ),
@@ -134,7 +136,7 @@ class _BadgeHolderDialogState extends State<BadgeHolderDialog> with TickerProvid
                       curve: const Interval(0.66, 0.99, curve: Curves.easeInOut))
                     ),
                     child: BadgeHolderDialogDataItem(
-                      amount: Utils.remainingTotalBadgesToCompleteCampaign(holder),
+                      amount: sessionService.remainingTotalBadgesToCompleteCampaign(holder),
                       label: 'Remaining Badges\nOn RTC Campaign'
                     ),
                   )
@@ -162,9 +164,9 @@ class _BadgeHolderDialogState extends State<BadgeHolderDialog> with TickerProvid
                 width: 200,
                 height: 200,
                 child: GridView.count(crossAxisCount: 3,
-                  children: List.generate(Utils.getDefaultSessions().length, (index) {
+                  children: List.generate(sessionService.getDefaultSessions().length, (index) {
                     double interval = 0.10;
-                    Session currentSession = Utils.getDefaultSessions()[index];
+                    Session currentSession = sessionService.getDefaultSessions()[index];
                     
                     return ScaleTransition(
                       scale: Tween<double>(begin: 0.0, end: 1.0)
@@ -185,10 +187,10 @@ class _BadgeHolderDialogState extends State<BadgeHolderDialog> with TickerProvid
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
-                            color: Utils.isSessionCompleteFromBadgeHolder(currentSession,
+                            color: sessionService.isSessionCompleteFromBadgeHolder(currentSession,
                             holder.badges) ? Utils.mainYellow : Utils.mainYellow.withOpacity(0.2)
                           ),
-                          child: Text(Utils.getCompletedBadgesFromSession(currentSession,
+                          child: Text(sessionService.getCompletedBadgesFromSession(currentSession,
                             holder.badges),
                             textAlign: TextAlign.center,
                             style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold)  

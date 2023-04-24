@@ -46,10 +46,10 @@ class BadgeTracker extends StatelessWidget {
                 children: List.generate(
                   selectedSession.badges.length,
                   (index) {
-                    Badge badge = selectedSession.badges[index];
+                    BadgeModel badge = selectedSession.badges[index];
                     return GestureDetector(
                       onTap: () {
-                        Utils.launchUrl(badge.link);
+                        Utils.launchUrlLink(badge.link);
                       },
                       child: MouseRegion(
                         cursor: SystemMouseCursors.click,
@@ -78,7 +78,7 @@ class BadgeTracker extends StatelessWidget {
                       selectedSession.badges.length,
 
                       (index) {
-                        Badge currentBadge = selectedSession.badges[index];
+                        BadgeModel currentBadge = selectedSession.badges[index];
                         bool isBadgeComplete = currentBadgeHolder.badges.where((b) => b.badgeTitle == currentBadge.badgeTitle).isNotEmpty;
 
                         return Container(

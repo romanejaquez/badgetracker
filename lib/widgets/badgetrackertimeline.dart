@@ -1,8 +1,10 @@
 import 'package:badgetracker/models/session.dart';
+import 'package:badgetracker/services/session.service.dart';
 import 'package:badgetracker/utils/utils.dart';
 import 'package:badgetracker/widgets/campaingcount.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class BadgeTrackerTimeline extends StatefulWidget {
   const BadgeTrackerTimeline({Key? key}) : super(key: key);
@@ -28,6 +30,10 @@ class _BadgeTrackerTimelineState extends State<BadgeTrackerTimeline> with Single
 
   @override
   Widget build(BuildContext context) {
+
+    var sessionService = context.read<SessionService>();
+    var defaultSessions = sessionService.getDefaultSessions();
+
     return Padding(
       padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
       child: Row(
@@ -55,7 +61,7 @@ class _BadgeTrackerTimelineState extends State<BadgeTrackerTimeline> with Single
           
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: List.generate(Utils.getDefaultSessions().length, (index) {
+                    children: List.generate(defaultSessions.length, (index) {
                       
                       return Container(
                         width: 100,
@@ -78,10 +84,10 @@ class _BadgeTrackerTimelineState extends State<BadgeTrackerTimeline> with Single
                     child: LayoutBuilder(
                       builder: (context, constraints) {
           
-                        if (Utils.getCompletedSessions() > 1) {
+                        if (sessionService.getCompletedSessions() > 1) {
                           Future.delayed(const Duration(milliseconds: 500), () {
                             setState(() {
-                              completedSessionsWidth = (constraints.maxWidth / (Utils.getDefaultSessions().length - 1)) * (Utils.getCompletedSessions() - 1);
+                              completedSessionsWidth = (constraints.maxWidth / (defaultSessions.length - 1)) * (sessionService.getCompletedSessions() - 1);
                             });
                           });
                         }
@@ -101,10 +107,10 @@ class _BadgeTrackerTimelineState extends State<BadgeTrackerTimeline> with Single
           
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: List.generate(Utils.getDefaultSessions().length, (index) {
+                    children: List.generate(defaultSessions.length, (index) {
                       
                       double interval = 0.10;
-                      Session currentSession = Utils.getDefaultSessions()[index];
+                      Session currentSession = defaultSessions[index];
                       
                       return SizedBox(
                         width: 100,

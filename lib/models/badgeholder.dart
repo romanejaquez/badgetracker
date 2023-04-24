@@ -4,7 +4,7 @@ class BadgeHolder {
 
   String name;
   String imgUrl;
-  List<Badge> badges;
+  List<BadgeModel> badges;
   String memberSince;
 
   BadgeHolder({
@@ -18,8 +18,8 @@ class BadgeHolder {
     return BadgeHolder(
       name: json['profile']['name'], 
       imgUrl: json['profile']['avatar'],
-      badges: Badge.fromJsonList(json['badges']),
-      memberSince: json['profile']['member_since']
+      badges: BadgeModel.fromJsonList(json['badges']),
+      memberSince: json['profile']['member_since'],
     );
   }
 }
