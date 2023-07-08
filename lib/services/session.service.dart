@@ -61,7 +61,7 @@ class SessionService extends ChangeNotifier {
 
   bool checkForSessionCompletion(String badgeName) {
     return allSessions.any((s) => s.badges.any(
-      (b) => b.badgeTitle.toLowerCase() == badgeName.toLowerCase()
+      (b) => b.badgeTitle.trim().toLowerCase() == badgeName.trim().toLowerCase()
       )
     );
   }
@@ -70,7 +70,7 @@ class SessionService extends ChangeNotifier {
     var allComplete = true;
 
     for(var badgeModel in session.badges) {
-      if (!badgeHolderBadges.any((b) => b.badgeTitle == badgeModel.badgeTitle)) {
+      if (!badgeHolderBadges.any((b) => b.badgeTitle.trim().toLowerCase() == badgeModel.badgeTitle.trim().toLowerCase())) {
         allComplete = false;
         break;
       }
@@ -80,30 +80,38 @@ class SessionService extends ChangeNotifier {
   }
 
   int remainingTotalBadgesToCompleteCampaign(BadgeHolder badgeHolder) {
-    int remaining = 0;
+    List<BadgeModel> remainingBadges = [];
     int totalBadges = totalBadgesInCampaign();
 
     for(var session in allSessions) {
       for (var sessionBadge in session.badges) {
-        if (badgeHolder.badges.any((b) => b.badgeTitle == sessionBadge.badgeTitle)) {
-          remaining += badgeHolder.badges.where((b) => b.badgeTitle == sessionBadge.badgeTitle).length;
+        if (badgeHolder.badges.any((b) => b.badgeTitle.trim().toLowerCase() == sessionBadge.badgeTitle.trim().toLowerCase())) {
+          var foundBadge = badgeHolder.badges.where((b) => b.badgeTitle.trim().toLowerCase() == sessionBadge.badgeTitle.trim().toLowerCase()).first;
+
+          if (!remainingBadges.any((b) => b.badgeTitle.trim().toLowerCase() == foundBadge.badgeTitle.trim().toLowerCase())) {
+            remainingBadges.add(foundBadge);
+          }
         }
       }
     }
 
-    return totalBadges - remaining;
+    return totalBadges - remainingBadges.length;
   }
 
   String getCompletedBadgesFromSession(Session session, List<BadgeModel> badgeHolderBadges) {
-    int completedBadges = 0;
+    List<BadgeModel> foundBadges = [];
 
     for(var badge in session.badges) {
-      if (badgeHolderBadges.any((b) => b.badgeTitle == badge.badgeTitle)) {
-        completedBadges += badgeHolderBadges.where((b) => b.badgeTitle == badge.badgeTitle).length;
+      if (badgeHolderBadges.any((b) => b.badgeTitle.trim().toLowerCase() == badge.badgeTitle.trim().toLowerCase())) {
+        var foundBadge = badgeHolderBadges.where((b) => b.badgeTitle.trim().toLowerCase() == badge.badgeTitle.trim().toLowerCase()).first;
+        
+        if (!foundBadges.any((b) => b.badgeTitle.trim().toLowerCase() == foundBadge.badgeTitle.trim().toLowerCase())) {
+          foundBadges.add(foundBadge);
+        }
       }
     }
 
-    return '$completedBadges/${session.badges.length}';
+    return '${foundBadges.length}/${session.badges.length}';
   }
 
   int getRemainingDays() {
@@ -146,7 +154,7 @@ class SessionService extends ChangeNotifier {
     for (var session in allSessions) {
       for(var badge in session.badges) {
         for(var holder in badgeHolders) {
-          if (holder.badges.any((b) => b.badgeTitle == badge.badgeTitle)) {
+          if (holder.badges.any((b) => b.badgeTitle.trim().toLowerCase() == badge.badgeTitle.trim().toLowerCase())) {
             completedBadges++;
           }
         }

@@ -190,8 +190,10 @@ class _BadgeHolderDialogState extends State<BadgeHolderDialog> with TickerProvid
                             color: sessionService.isSessionCompleteFromBadgeHolder(currentSession,
                             holder.badges) ? Utils.mainYellow : Utils.mainYellow.withOpacity(0.2)
                           ),
-                          child: Text(sessionService.getCompletedBadgesFromSession(currentSession,
-                            holder.badges),
+                          child: Text(
+                            sessionService.getCompletedBadgesFromSession(currentSession,
+                            holder.badges
+                          ),
                             textAlign: TextAlign.center,
                             style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold)  
                           )
