@@ -1,6 +1,8 @@
 import 'package:badgetracker/models/badge.dart';
 import 'package:badgetracker/models/badgeholder.dart';
+import 'package:badgetracker/services/session.service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
@@ -20,5 +22,25 @@ class Utils {
 
   static void launchUrlLink(String url) async {
     await launchUrl(Uri.parse(url));
+  }
+
+  static void processBadgeHolderScores(List<BadgeHolder> badgeHolders, BuildContext context) {
+    var sessionService = context.read<SessionService>();
+    var totalBadgesInCampaign = sessionService.totalBadgesInCampaign();
+
+    for(var badgeHolder in badgeHolders) {
+      badgeHolder.score = totalBadgesInCampaign - sessionService.remainingTotalBadgesToCompleteCampaign(badgeHolder);
+    }
+
+    badgeHolders.sort(((a, b) {
+      if (a.score < b.score) {
+        return 1;
+      }
+
+      if (a.score > b.score) {
+        return -1;
+      }
+      return 0;
+    }));
   }
 }

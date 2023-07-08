@@ -6,12 +6,14 @@ class BadgeHolder {
   String imgUrl;
   List<BadgeModel> badges;
   String memberSince;
+  int score;
 
   BadgeHolder({
     required this.name,
     required this.imgUrl,
     required this.badges,
-    required this.memberSince
+    required this.memberSince,
+    this.score = 0,
   });
 
   factory BadgeHolder.fromJson(Map<String, dynamic> json) {

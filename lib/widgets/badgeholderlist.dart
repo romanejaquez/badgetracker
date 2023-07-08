@@ -25,6 +25,8 @@ class _BadgeHolderListState extends State<BadgeHolderList> with SingleTickerProv
     rowAnim = AnimationController(vsync: this,
       duration: Duration(milliseconds: listDuration)
     )..forward();
+
+    Utils.processBadgeHolderScores(widget.badgeHolders, context);
   }
 
   @override
