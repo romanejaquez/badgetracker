@@ -12,7 +12,7 @@
 - Lists the quests and badges to be accomplished for a successful completion of the campaign
 - Keeps track of the top performers / members who have obtained the most badges towards a certain campaign
 
-- ![RTC Badge Tracker Main Screen](img2.png)
+![RTC Badge Tracker Main Screen](img2.png)
 
 ## Prerequisites
 - You must have a Google Cloud Account with enabled billing (or a Firebase Blaze Tier account / Pay-as-you-Go) and Cloud Functions enabled 
