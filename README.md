@@ -1,5 +1,7 @@
 # GDG Road To Certification Campaign - Badge Tracker
 
+![RTC Badge Tracker Launch Screen](img1.png)
+
 - This is the "unofficial" GDG RTC campaign badge tracker.
 - This web-based tracker was developed in Flutter, powered by the Google Cloud (hosted in Firebase Cloud Firestore, powered by Google Cloud Functions)
 - It was originally designed for the GDG Lawrence community
@@ -9,6 +11,8 @@
 - Track the number of sessions in the RTC campaign
 - Lists the quests and badges to be accomplished for a successful completion of the campaign
 - Keeps track of the top performers / members who have obtained the most badges towards a certain campaign
+
+- ![RTC Badge Tracker Main Screen](img2.png)
 
 ## Prerequisites
 - You must have a Google Cloud Account with enabled billing (or a Firebase Blaze Tier account / Pay-as-you-Go) and Cloud Functions enabled 
