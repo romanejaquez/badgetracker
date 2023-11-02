@@ -22,13 +22,18 @@
 This app is developed in Flutter. You can clone this repo and made the required adjustments to make it work for your specific community.
 
 ## STEP 1: Create a Cloud Function with an HTTP Trigger
-- Create a Cloud Function (1st gen or 2nd gen would do); as long as it supports HTTP triggers
+- Create a Cloud Function (2nd gen or 1st gen would do); as long as it supports HTTP triggers
+- Choose a function name i.e. `badge-tracker`
+- Pick a region closest to you and your rusers
+- Choose `Allow unauthenticated invocations`
+- Hit Next to go to the code tab
 - As the runtime, use Python 3.10 or later
 - In the **requirements.txt**, add the following dependencies:
 
 ```python
 # requirements.txt
 
+functions-framework==3.*
 beautifulsoup4
 requests
 
@@ -41,6 +46,7 @@ Notice the **profile_urls** variable which currently holds the URLS to all membe
 
 # main.py
 
+import functions_framework
 import requests
 import json
 from bs4 import BeautifulSoup
@@ -55,7 +61,17 @@ profile_urls = [
 'https://www.cloudskillsboost.google/public_profiles/82344445-515c-44f0-86ae-68d8d000e328',
 ]
 
+@functions_framework.http
 def get_badges(request):
+    """HTTP Cloud Function.
+    Args:
+        request (flask.Request): The request object.
+        <https://flask.palletsprojects.com/en/1.1.x/api/#incoming-request-data>
+    Returns:
+        The response json, or any set of values that can be turned into a
+        Response object using `make_response`
+        <https://flask.palletsprojects.com/en/1.1.x/api/#flask.make_response>.
+    """
 
     payload = []
 
@@ -91,9 +107,9 @@ def process_user(soup):
         root_container = soup.find('main', attrs={'id': 'jump-content'})
         avatar_container = root_container.find('div', { 'class': 'text--center'})
         avatar = avatar_container.find('ql-avatar', { 'class': 'l-mbl'})
+        user['name'] = avatar_container.find('h1', { 'class': 'ql-display-small'}).text.strip()
+        user['member_since'] = avatar_container.find('p', { 'class': 'ql-body-large'}).text.strip()
         user['avatar'] = avatar_container.find('ql-avatar', { 'class': 'l-mbl'})['src']
-        user['name'] = avatar_container.find('h1', { 'class': 'ql-headline-1'}).text.strip()
-        user['member_since'] = avatar_container.find('p', { 'class': 'ql-body-1'}).text.strip()
     except:
         user['avatar'] = 'https://www.gstatic.com/images/branding/product/2x/avatar_anonymous_512dp.png'
 
@@ -108,9 +124,9 @@ def process_badges(soup):
 
         for badge in profile_badges:
             badge_dic = {}
-            badge_dic['badgeTitle'] = badge.find('span', { 'class': 'ql-subhead-1'}).text.strip()
+            badge_dic['badgeTitle'] = badge.find('span', { 'class': 'ql-title-medium'}).text.strip()
             badge_dic['link'] = badge.find('a', { 'class': 'badge-image'})['href']
-            badge_dic['earned'] = badge.find('span', { 'class': 'ql-body-2'}).text.strip()
+            badge_dic['earned'] = badge.find('span', { 'class': 'ql-body-medium'}).text.strip()
             profile_badges_list.append(badge_dic)
     except:
         profile_badges_list = []
