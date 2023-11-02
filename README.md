@@ -63,15 +63,6 @@ profile_urls = [
 
 @functions_framework.http
 def get_badges(request):
-    """HTTP Cloud Function.
-    Args:
-        request (flask.Request): The request object.
-        <https://flask.palletsprojects.com/en/1.1.x/api/#incoming-request-data>
-    Returns:
-        The response json, or any set of values that can be turned into a
-        Response object using `make_response`
-        <https://flask.palletsprojects.com/en/1.1.x/api/#flask.make_response>.
-    """
 
     payload = []
 
@@ -107,9 +98,9 @@ def process_user(soup):
         root_container = soup.find('main', attrs={'id': 'jump-content'})
         avatar_container = root_container.find('div', { 'class': 'text--center'})
         avatar = avatar_container.find('ql-avatar', { 'class': 'l-mbl'})
+        user['avatar'] = avatar_container.find('ql-avatar', { 'class': 'profile-avatar'})['src']
         user['name'] = avatar_container.find('h1', { 'class': 'ql-display-small'}).text.strip()
         user['member_since'] = avatar_container.find('p', { 'class': 'ql-body-large'}).text.strip()
-        user['avatar'] = avatar_container.find('ql-avatar', { 'class': 'l-mbl'})['src']
     except:
         user['avatar'] = 'https://www.gstatic.com/images/branding/product/2x/avatar_anonymous_512dp.png'
 
