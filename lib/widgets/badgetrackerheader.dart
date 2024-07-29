@@ -118,7 +118,7 @@ class _BadgeTrackerHeaderState extends State<BadgeTrackerHeader> with SingleTick
                 padding: const EdgeInsets.all(8.0),
                 child: Text.rich(
                   TextSpan(
-                    style: const TextStyle(fontSize: 15),
+                    style: const TextStyle(fontSize: 15, color: Colors.blueAccent),
                     children: [
                       const TextSpan(text: 'by '),
                       TextSpan(text: sessionService.communityName, style: const TextStyle(fontWeight: FontWeight.bold))

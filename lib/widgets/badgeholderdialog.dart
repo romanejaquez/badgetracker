@@ -100,6 +100,14 @@ class _BadgeHolderDialogState extends State<BadgeHolderDialog> with TickerProvid
                 style: const TextStyle(color: Utils.mainBlue, fontSize: 20, fontWeight: FontWeight.bold)
               ),
               Text(holder.memberSince, textAlign: TextAlign.center),
+              const SizedBox(height: 10),
+              TextButton.icon(
+                icon: const Icon(Icons.link, color: Colors.blueAccent),
+                onPressed: () {
+                  Utils.launchUrlLink(holder.profileLink);
+                }, 
+                label: const Text('My Public Profile', style: TextStyle(color: Colors.blueAccent)),
+              ),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
