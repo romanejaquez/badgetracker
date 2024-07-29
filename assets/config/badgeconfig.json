@@ -2,7 +2,7 @@
     "campaign": "Professional Machine Learning Engineer",
     "community": "GDG Lawrence",
     "link": "https://gdg.community.dev/gdg-lawrence",
-    "badgesEndpoint": "https://us-central1-romanjustcodes.cloudfunctions.net/getBadges",
+    "badgesEndpoint": "https://us-central1-romanjustcodes.cloudfunctions.net/pullBadges",
     "sessions": [
         {
             "index": 0,
