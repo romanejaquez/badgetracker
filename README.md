@@ -72,7 +72,7 @@ def get_badges(request):
         soup = BeautifulSoup(response.text, 'html.parser')
 
         badges = process_badges(soup)
-        user_profile = process_user(soup)
+        user_profile = process_user(soup, url)
 
         if user_profile['name'] != '':
             user_payload = {
@@ -87,20 +87,22 @@ def get_badges(request):
         'Content-Type': 'application/json'
     }
 
-def process_user(soup):
+def process_user(soup, url):
     user = {
         'name': '',
         'member_since': '',
-        'avatar': ''
+        'avatar': '',
+        'profile_link': str(url)
     }
 
+    root_container = soup.find('main', attrs={'id': 'jump-content'})
+    avatar_container = root_container.find('div', { 'class': 'text--center'})
+    user['name'] = avatar_container.find('h1', { 'class': 'ql-display-small'}).text.strip()
+    user['member_since'] = avatar_container.find('p', { 'class': 'ql-body-large'}).text.strip()
+
     try:
-        root_container = soup.find('main', attrs={'id': 'jump-content'})
-        avatar_container = root_container.find('div', { 'class': 'text--center'})
         avatar = avatar_container.find('ql-avatar', { 'class': 'l-mbl'})
         user['avatar'] = avatar_container.find('ql-avatar', { 'class': 'profile-avatar'})['src']
-        user['name'] = avatar_container.find('h1', { 'class': 'ql-display-small'}).text.strip()
-        user['member_since'] = avatar_container.find('p', { 'class': 'ql-body-large'}).text.strip()
     except:
         user['avatar'] = 'https://www.gstatic.com/images/branding/product/2x/avatar_anonymous_512dp.png'
 
@@ -123,6 +125,7 @@ def process_badges(soup):
         profile_badges_list = []
 
     return profile_badges_list
+
 
 ```
 
@@ -154,7 +157,8 @@ This will output a JSON that looks like this;
     "profile": {
       "name": "Roman Jaquez",
       "member_since": "Member since 2021",
-      "avatar": "https://lh3.googleusercontent.com/a-/AOh14Ghusffdg0YFZIt3cAEzViV8tIDgkkDnVcE62ylU2yE=s320-c"
+      "avatar": "https://lh3.googleusercontent.com/a-/AOh14Ghusffdg0YFZIt3cAEzViV8tIDgkkDnVcE62ylU2yE=s320-c",
+      "profile_link": "https://www.cloudskillsboost.google/public_profiles/faa923f8-601f-4f68-ae20-6b6b9cf8f2dc"
     }
   },
   ...
