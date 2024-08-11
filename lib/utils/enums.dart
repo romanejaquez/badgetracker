@@ -1,0 +1,4 @@
+enum BadgeTrackerLogos {
+  googlecloud,
+  googlecloudmono,
+}

@@ -1,7 +1,10 @@
 import 'package:badgetracker/services/session.service.dart';
+import 'package:badgetracker/utils/enums.dart';
 import 'package:badgetracker/utils/utils.dart';
+import 'package:badgetracker/widgets/badgetrackerlogo.dart';
 import 'package:badgetracker/widgets/gcloudlogoanim.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
@@ -53,7 +56,13 @@ class _BadgeTrackerHeaderState extends State<BadgeTrackerHeader> with SingleTick
         children: [
           Row(
             children: [
-              const GCloudLogoAnim(animate: false, animateOnce: true, colorLogo: true, scale: 0.2),
+              const SizedBox(width: 10),
+              const BadgeTrackerLogo(
+                logo: BadgeTrackerLogos.googlecloud
+              ).animate()
+              .fadeIn(
+                duration: 2.seconds
+              ),
               const SizedBox(width: 10),
               Stack(
                 clipBehavior: Clip.none,
