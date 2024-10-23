@@ -41,6 +41,7 @@ dependencies:
   intl: ^0.17.0
   rive: ^0.13.4
   flutter_animate: ^4.5.0
+  url_launcher_web: ^2.3.3
 
 dev_dependencies:
   flutter_test:

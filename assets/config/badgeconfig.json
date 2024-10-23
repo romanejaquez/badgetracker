@@ -29,7 +29,7 @@
             "date": "2024-08-21T00:00:00Z",
             "badges": [
                 {
-                    "badgeTitle": "TensorFlow on Google Cloud",
+                    "badgeTitle": "Build, Train and Deploy ML Models with Keras on Google Cloud",
                     "link": "https://www.cloudskillsboost.google/course_templates/12",
                     "isComplete": false
                 },
