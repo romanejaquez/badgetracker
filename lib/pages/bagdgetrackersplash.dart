@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:badgetracker/pages/badgetrackermain.dart';
 import 'package:badgetracker/services/session.service.dart';
 import 'package:badgetracker/utils/utils.dart';

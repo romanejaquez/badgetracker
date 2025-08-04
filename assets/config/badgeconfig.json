@@ -1,5 +1,5 @@
 {
-    "campaign": "Professional Machine Learning Engineer",
+    "campaign": "Professional Cloud Developer",
     "community": "GDG Lawrence",
     "link": "https://gdg.community.dev/gdg-lawrence",
     "badgesEndpoint": "https://us-central1-romanjustcodes.cloudfunctions.net/pullBadges",
@@ -8,16 +8,11 @@
             "index": 0,
             "isSelected": false,
             "isComplete": false,
-            "date": "2024-08-07T00:00:00Z",
+            "date": "2025-08-20T00:00:00Z",
             "badges": [
                 {
-                    "badgeTitle": "How Google Does Machine Learning",
-                    "link": "https://www.cloudskillsboost.google/course_templates/10",
-                    "isComplete": false
-                },
-                {
-                    "badgeTitle": "Launching into Machine Learning",
-                    "link": "https://www.cloudskillsboost.google/course_templates/8",
+                    "badgeTitle": "Google Cloud Fundamentals: Core Infrastructure",
+                    "link": "https://www.cloudskillsboost.google/course_templates/60",
                     "isComplete": false
                 }
             ]
@@ -26,29 +21,24 @@
             "index": 1,
             "isSelected": false,
             "isComplete": false,
-            "date": "2024-08-21T00:00:00Z",
+            "date": "2025-09-03T00:00:00Z",
             "badges": [
                 {
-                    "badgeTitle": "Build, Train and Deploy ML Models with Keras on Google Cloud",
-                    "link": "https://www.cloudskillsboost.google/course_templates/12",
+                    "badgeTitle": "Getting Started With Application Development",
+                    "link": "https://www.cloudskillsboost.google/course_templates/22",
                     "isComplete": false
-                },
-              {
-                "badgeTitle": "Feature Engineering",
-                "link": "https://www.cloudskillsboost.google/course_templates/11",
-                "isComplete": false
-              }
+                }
             ]
         },
         {
             "index": 2,
             "isSelected": false,
-            "date": "2024-09-04T00:00:00Z",
+            "date": "2025-09-17T00:00:00Z",
             "isComplete": false,
             "badges": [
                 {
-                    "badgeTitle": "Machine Learning in the Enterprise",
-                    "link": "https://www.cloudskillsboost.google/course_templates/9",
+                    "badgeTitle": "Securing and Integrating Components of your Application",
+                    "link": "https://www.cloudskillsboost.google/course_templates/42",
                     "isComplete": false
                 }
             ]
@@ -56,17 +46,12 @@
         {
             "index": 3,
             "isSelected": false,
-            "date": "2024-09-18T00:00:00Z",
+            "date": "2025-10-01T00:00:00Z",
             "isComplete": false,
             "badges": [
                 {
-                    "badgeTitle": "Production Machine Learning Systems",
-                    "link": "https://www.cloudskillsboost.google/course_templates/17",
-                    "isComplete": false
-                },
-                {
-                    "badgeTitle": "Computer Vision Fundamentals with Google Cloud",
-                    "link": "https://www.cloudskillsboost.google/course_templates/18",
+                    "badgeTitle": "App Deployment, Debugging, and Performance",
+                    "link": "https://www.cloudskillsboost.google/course_templates/43",
                     "isComplete": false
                 }
             ]
@@ -74,17 +59,12 @@
         {
             "index": 4,
             "isSelected": false,
-            "date": "2024-10-02T00:00:00Z",
+            "date": "2025-10-15T00:00:00Z",
             "isComplete": false,
             "badges": [
                 {
-                    "badgeTitle": "Natural Language Processing on Google Cloud",
-                    "link": "https://www.cloudskillsboost.google/course_templates/40",
-                    "isComplete": false
-                },
-                {
-                    "badgeTitle": "Recommendation Systems on Google Cloud",
-                    "link": "https://www.cloudskillsboost.google/course_templates/39",
+                    "badgeTitle": "Application Development with Cloud Run",
+                    "link": "https://www.cloudskillsboost.google/course_templates/371",
                     "isComplete": false
                 }
             ]
@@ -92,27 +72,12 @@
         {
             "index": 5,
             "isSelected": false,
-            "date": "2024-10-16T00:00:00Z",
+            "date": "2025-10-26T00:00:00Z",
             "isComplete": false,
             "badges": [
                 {
-                    "badgeTitle": "Machine Learning Operations (MLOps): Getting Started",
-                    "link": "https://www.cloudskillsboost.google/course_templates/158",
-                    "isComplete": false
-                },
-                {
-                    "badgeTitle": "ML Pipelines on Google Cloud",
-                    "link": "https://www.cloudskillsboost.google/course_templates/191",
-                    "isComplete": false
-                },
-                {
-                    "badgeTitle": "Prepare Data for ML APIs on Google Cloud",
-                    "link": "https://www.cloudskillsboost.google/course_templates/631",
-                    "isComplete": false
-                },
-                {
-                    "badgeTitle": "Build and Deploy Machine Learning Solutions on Vertex AI",
-                    "link": "https://www.cloudskillsboost.google/course_templates/684",
+                    "badgeTitle": "Getting started with Google Kubernetes Engine",
+                    "link": "https://www.cloudskillsboost.google/course_templates/2",
                     "isComplete": false
                 }
             ]
