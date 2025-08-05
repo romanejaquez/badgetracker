@@ -24,8 +24,8 @@
             "date": "2025-09-03T00:00:00Z",
             "badges": [
                 {
-                    "badgeTitle": "Getting Started With Application Development",
-                    "link": "https://www.cloudskillsboost.google/course_templates/22",
+                    "badgeTitle": "Developing Applications with Google Cloud: Foundations",
+                    "link": "https://www.cloudskillsboost.google/paths/19/course_templates/874",
                     "isComplete": false
                 }
             ]
@@ -37,8 +37,13 @@
             "isComplete": false,
             "badges": [
                 {
-                    "badgeTitle": "Securing and Integrating Components of your Application",
-                    "link": "https://www.cloudskillsboost.google/course_templates/42",
+                    "badgeTitle": "Service Orchestration and Choreography on Google Cloud",
+                    "link": "https://www.cloudskillsboost.google/paths/19/course_templates/465",
+                    "isComplete": false
+                },
+                {
+                    "badgeTitle": "Developing Applications with Cloud Run Functions on Google Cloud",
+                    "link": "https://www.cloudskillsboost.google/paths/19/course_templates/505",
                     "isComplete": false
                 }
             ]
@@ -50,8 +55,18 @@
             "isComplete": false,
             "badges": [
                 {
-                    "badgeTitle": "App Deployment, Debugging, and Performance",
-                    "link": "https://www.cloudskillsboost.google/course_templates/43",
+                    "badgeTitle": "Streamline App Development with Gemini Code Assist",
+                    "link": "https://www.cloudskillsboost.google/paths/19/course_templates/1166",
+                    "isComplete": false
+                },
+                {
+                    "badgeTitle": "Developing Containerized Applications on Google Cloud",
+                    "link": "https://www.cloudskillsboost.google/paths/19/course_templates/530",
+                    "isComplete": false
+                },
+                {
+                    "badgeTitle": "Developing Applications with Cloud Run on Google Cloud: Fundamentals",
+                    "link": "https://www.cloudskillsboost.google/paths/19/course_templates/559",
                     "isComplete": false
                 }
             ]
@@ -63,8 +78,13 @@
             "isComplete": false,
             "badges": [
                 {
-                    "badgeTitle": "Application Development with Cloud Run",
-                    "link": "https://www.cloudskillsboost.google/course_templates/371",
+                    "badgeTitle": "Integrating Applications with Gemini 1.0 Pro on Google Cloud",
+                    "link": "https://www.cloudskillsboost.google/paths/19/course_templates/980",
+                    "isComplete": false
+                },
+                {
+                    "badgeTitle": "Serverless Firebase Development",
+                    "link": "https://www.cloudskillsboost.google/paths/19/course_templates/649",
                     "isComplete": false
                 }
             ]
@@ -76,8 +96,18 @@
             "isComplete": false,
             "badges": [
                 {
-                    "badgeTitle": "Getting started with Google Kubernetes Engine",
-                    "link": "https://www.cloudskillsboost.google/course_templates/2",
+                    "badgeTitle": "Deploy to Kubernetes in Google Cloud",
+                    "link": "https://www.cloudskillsboost.google/paths/19/course_templates/663",
+                    "isComplete": false
+                },
+                {
+                    "badgeTitle": "Serverless Cloud Run Development",
+                    "link": "https://www.cloudskillsboost.google/paths/19/course_templates/741",
+                    "isComplete": false
+                },
+                {
+                    "badgeTitle": "Develop and Secure APIs with Apigee X",
+                    "link": "https://www.cloudskillsboost.google/paths/19/course_templates/714",
                     "isComplete": false
                 }
             ]
