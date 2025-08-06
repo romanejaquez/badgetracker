@@ -83,7 +83,7 @@
                     "isComplete": false
                 },
                 {
-                    "badgeTitle": "Serverless Firebase Development",
+                    "badgeTitle": "Develop Serverless Apps with Firebase",
                     "link": "https://www.cloudskillsboost.google/paths/19/course_templates/649",
                     "isComplete": false
                 }
@@ -96,12 +96,12 @@
             "isComplete": false,
             "badges": [
                 {
-                    "badgeTitle": "Deploy to Kubernetes in Google Cloud",
+                    "badgeTitle": "Deploy Kubernetes Applications on Google Cloud",
                     "link": "https://www.cloudskillsboost.google/paths/19/course_templates/663",
                     "isComplete": false
                 },
                 {
-                    "badgeTitle": "Serverless Cloud Run Development",
+                    "badgeTitle": "Develop Serverless Applications on Cloud Run",
                     "link": "https://www.cloudskillsboost.google/paths/19/course_templates/741",
                     "isComplete": false
                 },
