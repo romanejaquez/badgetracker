@@ -36,6 +36,7 @@ This app is developed in Flutter. You can clone this repo and made the required 
 functions-framework==3.*
 beautifulsoup4
 requests
+datetime
 
 ```
 
@@ -54,6 +55,11 @@ from bs4 import BeautifulSoup
 # add all profile urls from all your members here
 # future versions will pull this from Firestore
 
+cache = {
+    'data': [],
+    'ttl': datetime.datetime.now(),
+}
+
 profile_urls = [
 'https://www.cloudskillsboost.google/public_profiles/13d2fc34-8aff-44b4-adcc-77032ccf8cb2',
 'https://www.cloudskillsboost.google/public_profiles/e770c4c3-5a42-495c-80cf-f9db5b4371e4',
@@ -63,6 +69,11 @@ profile_urls = [
 
 @functions_framework.http
 def get_badges(request):
+    if cache['data'] and cache['ttl'] > datetime.datetime.now():
+        return json.dumps(cache['data']), 200, {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json'
+    }
 
     payload = []
 
@@ -81,6 +92,11 @@ def get_badges(request):
             }
 
             payload.append(user_payload)
+
+    cache['data'] = payload
+    # Store a TTL for the data
+    date_in_one_hour = datetime.datetime.now() + datetime.timedelta(hours=1)
+    cache['ttl'] = date_in_one_hour
 
     return json.dumps(payload), 200, {
         'Access-Control-Allow-Origin': '*',
